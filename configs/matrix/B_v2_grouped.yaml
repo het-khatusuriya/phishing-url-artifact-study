@@ -1,0 +1,32 @@
+run_id: B_v2_grouped
+dataset: lineage253k
+feature_set: lexical_v2
+drop_artifacts: false
+split: grouped
+models:
+- lr
+- rf
+- xgb
+- softvote
+- lgbm
+seeds:
+- 42
+- 43
+- 44
+- 45
+- 46
+test_size: 0.2
+val_size: 0.2
+fpr_targets:
+- 0.01
+- 0.001
+external_tests:
+- phiusiil
+- hannousse2021
+- ebbu2017
+- phishstorm
+- iscx2016
+- kaggle651k_bp
+- phishtank
+- urlhaus
+- openphish

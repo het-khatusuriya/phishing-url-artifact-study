@@ -1,0 +1,9 @@
+run_id: smoke_real
+dataset: phiusiil
+feature_set: lexical_v2
+split: grouped
+models: [lr, xgb]
+seeds: [42]
+max_rows: 20000
+external_tests: [hannousse2021, openphish]
+model_params: {xgb: {n_estimators: 50}}

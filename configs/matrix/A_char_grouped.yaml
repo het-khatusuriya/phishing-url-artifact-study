@@ -1,0 +1,33 @@
+run_id: A_char_grouped
+dataset: phiusiil
+feature_set: lexical_v2
+drop_artifacts: true
+split: grouped
+models:
+- charcnn
+- charcnn_hybrid
+seeds:
+- 42
+- 43
+- 44
+test_size: 0.2
+val_size: 0.2
+fpr_targets:
+- 0.01
+- 0.001
+external_tests:
+- lineage253k
+- hannousse2021
+- ebbu2017
+- phishstorm
+- iscx2016
+- kaggle651k_bp
+- phishtank
+- urlhaus
+- openphish
+charcnn:
+  epochs: 8
+  batch_size: 256
+  patience: 2
+  threads: 10
+  max_train_minutes: 40

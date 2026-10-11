@@ -1,0 +1,15 @@
+# Canonical dataset spec consumed by scripts/build_canonical.py
+# label semantics after loading: 1 = malicious/phishing, 0 = benign
+datasets:
+  - {name: phiusiil,       path: data/interim/phiusiil.csv,       source: phiusiil_uci967}
+  - {name: hannousse2021,  path: data/interim/hannousse2021.csv,  source: hannousse2021_mendeley}
+  - {name: ebbu2017,       path: data/interim/ebbu2017.csv,       source: ebbu2017_github}
+  - {name: phishstorm,     path: data/interim/phishstorm.csv,     source: phishstorm_mirror}
+  - {name: iscx2016,       path: data/interim/iscx2016.csv,       source: iscx_url_2016_mirror}
+  - {name: kaggle651k_bp,  path: data/interim/kaggle651k_bp.csv,  source: kaggle_sid321axn_mirror}
+  - {name: lineage253k,    path: data/interim/lineage253k.csv,    source: hf_mitake_lineage_sample}
+  - {name: phishtank,      path: data/interim/phishtank.csv,      source: phishtank_2026-10-11, timestamp_col: timestamp}
+  - {name: urlhaus,        path: data/interim/urlhaus.csv,        source: urlhaus_2026-10-11,   timestamp_col: timestamp}
+  - {name: openphish,      path: data/interim/openphish.csv,      source: openphish_2026-10-11}
+  # the original project dataset, if/when supplied by the authors:
+  # - {name: main, path: data/raw/raw_data.csv, source: original_repo, label_map: {legitimate: 0, phishing: 1}}
