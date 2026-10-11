@@ -1,0 +1,14 @@
+{
+  "dataset": "phiusiil",
+  "rows_used": 234687,
+  "rows_failed_original_extractor": 0,
+  "n_model_columns": 597,
+  "n_tld_columns": 570,
+  "split_sizes": [
+    140811,
+    46938,
+    46938
+  ],
+  "feature_seconds": 79.83382511138916,
+  "note": "Original src/ modules executed unchanged; input data substituted because raw_data.csv is unavailable."
+}

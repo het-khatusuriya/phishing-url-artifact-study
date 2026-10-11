@@ -18,4 +18,4 @@
 - Probe (Table T10): benign source corpus identifiable at 0.83 accuracy with `lexical_v2` (chance 0.17); 0.81 after dropping artifact columns; 0.62 after canonicalisation. → added `lexical_v2_canon` and `charcnn_canon` (post hoc, logged in DECISIONS.md and EXPERIMENT_PROTOCOL.md).
 - Original pipeline code re-executed unchanged on both substitute corpora (`results/reproduction/`). Found a defect: the original extractor does not parse hosts of scheme-less URLs (audit §3; regression test added).
 - Experiment queues running: main matrix (14 runs), LOCO (12 runs); canonical queue (8 runs) starts when LOCO ends.
-- PDF incident: while removing licence-restricted PDFs from the unpushed branch history, `git filter-branch` deleted `research/papers/` from disk; 36 PDFs restored from download caches, 44 being re-downloaded by an agent from the same legal sources. PDFs are now git-ignored.
+- PDF incident: while removing licence-restricted PDFs from the unpushed branch history, `git filter-branch` deleted `research/papers/` from disk; 36 PDFs restored from download caches, all 44 others re-downloaded from the same legal sources and verified. PDFs are now git-ignored.

@@ -6,4 +6,3 @@ models/
 results/runs/*/predictions_*.csv
 .pytest_cache/
 research/papers/
-results/reproduction/*/

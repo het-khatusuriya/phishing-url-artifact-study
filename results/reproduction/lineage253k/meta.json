@@ -1,0 +1,14 @@
+{
+  "dataset": "lineage253k",
+  "rows_used": 252394,
+  "rows_failed_original_extractor": 0,
+  "n_model_columns": 33,
+  "n_tld_columns": 6,
+  "split_sizes": [
+    151436,
+    50479,
+    50479
+  ],
+  "feature_seconds": 41.351542949676514,
+  "note": "Original src/ modules executed unchanged; input data substituted because raw_data.csv is unavailable."
+}
