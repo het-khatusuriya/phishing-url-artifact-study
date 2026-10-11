@@ -1,0 +1,18 @@
+{
+  "name": "phishstorm",
+  "path": "D:\\jiya research paper\\repo\\data\\interim\\phishstorm.csv",
+  "sha256": "2f7c38df171af2cb3064caafb1a24c7005da072aaa21c79669956fcc70c778e8",
+  "rows_raw": 96018,
+  "rows_after_dropna": 96018,
+  "rows_after_normalisation_dedup": 95962,
+  "conflicting_label_urls_removed": 0,
+  "positives": 47972,
+  "negatives": 47990,
+  "unique_registered_domains": 30894,
+  "share_https": 0.017965444655176008,
+  "share_www": 0.5234780433921761,
+  "share_ip_host": 0.0029595048039849107,
+  "has_timestamps": false,
+  "timestamp_min": null,
+  "timestamp_max": null
+}

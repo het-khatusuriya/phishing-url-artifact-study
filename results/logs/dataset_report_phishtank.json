@@ -1,0 +1,18 @@
+{
+  "name": "phishtank",
+  "path": "D:\\jiya research paper\\repo\\data\\interim\\phishtank.csv",
+  "sha256": "9b4579a0fc884517a91fd34c3fb44f1317286b9be105f560b2712ddf40087975",
+  "rows_raw": 67621,
+  "rows_after_dropna": 67621,
+  "rows_after_normalisation_dedup": 67326,
+  "conflicting_label_urls_removed": 0,
+  "positives": 67326,
+  "negatives": 0,
+  "unique_registered_domains": 12971,
+  "share_https": 0.9192585331075662,
+  "share_www": 0.041796631316281974,
+  "share_ip_host": 0.0013813385616255236,
+  "has_timestamps": true,
+  "timestamp_min": "2011-02-18 10:50:32+00:00",
+  "timestamp_max": "2026-10-11 15:49:45+00:00"
+}

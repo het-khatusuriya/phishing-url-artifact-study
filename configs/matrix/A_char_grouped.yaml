@@ -22,7 +22,6 @@ external_tests:
 - ebbu2017
 - phishstorm
 - iscx2016
-- kaggle651k_bp
 - phishtank
 - urlhaus
 - openphish

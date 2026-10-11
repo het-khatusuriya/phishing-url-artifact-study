@@ -1,0 +1,18 @@
+{
+  "name": "iscx2016",
+  "path": "D:\\jiya research paper\\repo\\data\\interim\\iscx2016.csv",
+  "sha256": "486f9158e64492948dac64e81aeb431ccd0c651b514d43878f201defd82f3ae2",
+  "rows_raw": 45343,
+  "rows_after_dropna": 45343,
+  "rows_after_normalisation_dedup": 45324,
+  "conflicting_label_urls_removed": 0,
+  "positives": 9946,
+  "negatives": 35378,
+  "unique_registered_domains": 4304,
+  "share_https": 0.04681846262465802,
+  "share_www": 0.095931515311976,
+  "share_ip_host": 0.0033315682640543643,
+  "has_timestamps": false,
+  "timestamp_min": null,
+  "timestamp_max": null
+}

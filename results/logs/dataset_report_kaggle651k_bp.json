@@ -1,0 +1,18 @@
+{
+  "name": "kaggle651k_bp",
+  "path": "D:\\jiya research paper\\repo\\data\\interim\\kaggle651k_bp.csv",
+  "sha256": "7dc79c53be9c94c172050fceb49454c398761bfdad7bbe161bbe646b6a54cf49",
+  "rows_raw": 522214,
+  "rows_after_dropna": 522214,
+  "rows_after_normalisation_dedup": 514031,
+  "conflicting_label_urls_removed": 3940,
+  "positives": 90015,
+  "negatives": 424016,
+  "unique_registered_domains": 145482,
+  "share_https": 0.017181843118411148,
+  "share_www": 0.09524717380858352,
+  "share_ip_host": 0.0006945106423542549,
+  "has_timestamps": false,
+  "timestamp_min": null,
+  "timestamp_max": null
+}

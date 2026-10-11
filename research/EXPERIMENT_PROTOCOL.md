@@ -1,6 +1,8 @@
-# Experiment Protocol (v1 draft, 2026-10-11 — to be frozen before the main runs)
+# Experiment Protocol (v1.1, 2026-10-11)
 
-This protocol is fixed *before* looking at test results. Any later change is logged in `DECISIONS.md` with the reason.
+> **Change record.** v1 was written before any experiment. v1.1 adds the `lexical_v2_canon` and `charcnn_canon` representations and the leave-one-corpus-out design. These were added after (a) the dataset-identification probe and (b) inspecting the external results of the first baseline run (`A_b28_random`). They are therefore *post hoc* additions and are reported as such. No hyper-parameter, threshold or feature choice was tuned on test or external data; all models keep the fixed configurations below.
+
+Any change to this protocol is logged in `DECISIONS.md` with the reason and date.
 
 ## 1. Task and label definition
 
@@ -22,9 +24,10 @@ Raw features are extracted from the *original* URL string, not the normalised on
 |---|---|---|
 | `baseline28` | 28 features of the original repository, code imported unchanged; `tld_type` one-hot encoded with the encoder fitted on the training partition only (`min_frequency=20`, infrequent bucket) | Faithful reproduction |
 | `baseline28 − artifacts` | `baseline28` without `https_usage`, `num_subdomains` | Artifact ablation (RQ1) |
-| `lexical_v2` | ~95 numeric offline features (public-suffix aware, encoding/IDN aware, token statistics, brand/keyword placement) | Improved handcrafted set |
+| `lexical_v2` | 91 numeric offline features (public-suffix aware, encoding/IDN aware, token statistics, brand/keyword placement) | Improved handcrafted set |
 | `lexical_v2 − artifacts` | without `https_scheme`, `had_explicit_scheme`, `has_www_prefix`, `host_num_labels`, `num_subdomain_labels_psl` | Artifact ablation |
-| `char` | raw characters (≤ 200, ASCII vocabulary) | Learned representation |
+| `lexical_v2_canon` | 86 features: the URL string is first canonicalised (scheme and a leading `www.`/`wwwN.` label removed), then `lexical_v2` is computed and the five artifact columns are dropped. Invariant to scheme and `www.` by construction (unit-tested). | Artifact-neutral representation (added after the probe showed column dropping leaks scheme through counts; see DECISIONS.md) |
+| `char` / `char canon` | raw characters (≤ 160, ASCII vocabulary), optionally canonicalised | Learned representation |
 | `char + lexical_v2` | both | Hybrid |
 
 No feature uses network access.
@@ -37,6 +40,7 @@ No feature uses network access.
 | `grouped` | StratifiedGroupKFold (10 folds, shuffle, seed s) on registered domain; folds 0–1 → test, 2–3 → val, rest → train. No registered domain in two partitions. | Main protocol |
 | `temporal` | Sort by timestamp; oldest 60 % train, next 20 % val, newest 20 % test | Only where trustworthy timestamps exist (URLhaus-based set) |
 | `external` | Train on dataset A (grouped split), evaluate on the entire dataset B | Cross-collection generalisation |
+| `LOCO` | Leave-one-corpus-out: pool the other five labelled corpora (each capped at 50k rows, stratified), grouped split of the pool for train/val, evaluate on the whole held-out corpus | Generalisation to an unseen collection when training data are diverse |
 
 For every split we store the index arrays, the class balance per partition, and the domain-overlap report (`share_test_rows_with_group_in_train`).
 
@@ -52,7 +56,8 @@ Fixed configurations (no test-set tuning). Hyper-parameters of LR/RF/XGB are the
 | `lgbm` | LightGBM, 400 rounds, 63 leaves, η = 0.05 |
 | `softvote` | Original hybrid: soft vote LR:RF:XGB with weights 1:2:2 |
 | `stack` | Stacking of LR/RF/XGB with logistic meta-learner (5-fold internal CV) |
-| `charcnn` | Char-CNN: emb 32, 3 parallel convs (k = 3,5,7; 128 filters), dense 128, dropout 0.3, Adam 1e-3, batch 256, ≤ 8 epochs, early stopping on validation AUC (patience 2) |
+| `charcnn` | Char-CNN: emb 32, 3 parallel convs (k = 3,5,7; 128 filters), global max-pool, dense 128, dropout 0.3, Adam 1e-3, batch 256, ≤ 5 epochs or 20 min, early stopping on validation AUC (patience 2), class-balanced BCE; 115,329 parameters |
+| `charcnn_canon` | Same model on canonicalised strings |
 | `charcnn_hybrid` | Char-CNN with standardised `lexical_v2` features concatenated before the dense head |
 
 ## 6. Threshold policies (chosen on validation only)
@@ -65,7 +70,7 @@ Per model × seed × evaluation set × policy: accuracy, precision, recall, spec
 
 ## 8. Repetition and statistics
 
-- Random and grouped protocols: 5 seeds (42–46) → mean ± sd. Char models: 3 seeds (CPU budget).
+- Random and grouped protocols: 5 seeds (42–46) → mean ± sd. LOCO: 3 seeds. Char models: 3 seeds on corpus A, 1 seed on corpus B (CPU budget).
 - Within a seed, paired comparisons on identical test examples: paired bootstrap (1 000 resamples) of ΔAUC / ΔPR-AUC / ΔF1 with 95 % percentile CI and a two-sided bootstrap p-value; McNemar's exact test on paired correctness at the policy threshold.
 - Point estimates carry 95 % percentile-bootstrap CIs (1 000 resamples).
 - A difference is called "significant" only when the paired 95 % CI excludes 0 **and** the effect is consistent in sign across seeds.

@@ -1,0 +1,18 @@
+{
+  "name": "openphish",
+  "path": "D:\\jiya research paper\\repo\\data\\interim\\openphish.csv",
+  "sha256": "664dd98689360f848d55254cb8f542c2038e8b805792548b124b2ca4d6db76e7",
+  "rows_raw": 300,
+  "rows_after_dropna": 300,
+  "rows_after_normalisation_dedup": 300,
+  "conflicting_label_urls_removed": 0,
+  "positives": 300,
+  "negatives": 0,
+  "unique_registered_domains": 144,
+  "share_https": 0.7133333333333334,
+  "share_www": 0.19,
+  "share_ip_host": 0.0,
+  "has_timestamps": false,
+  "timestamp_min": null,
+  "timestamp_max": null
+}

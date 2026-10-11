@@ -1,0 +1,18 @@
+{
+  "name": "lineage253k",
+  "path": "D:\\jiya research paper\\repo\\data\\interim\\lineage253k.csv",
+  "sha256": "b1ac517668bbcdc0c98228d69900c112c708aba1e56d5dda7bdeb9e854e2a77a",
+  "rows_raw": 253098,
+  "rows_after_dropna": 253098,
+  "rows_after_normalisation_dedup": 252394,
+  "conflicting_label_urls_removed": 1,
+  "positives": 123095,
+  "negatives": 129299,
+  "unique_registered_domains": 130453,
+  "share_https": 3.962059319952138e-06,
+  "share_www": 0.15616456809591353,
+  "share_ip_host": 0.01034097482507508,
+  "has_timestamps": false,
+  "timestamp_min": null,
+  "timestamp_max": null
+}

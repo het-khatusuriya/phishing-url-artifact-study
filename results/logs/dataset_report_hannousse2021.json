@@ -1,0 +1,18 @@
+{
+  "name": "hannousse2021",
+  "path": "D:\\jiya research paper\\repo\\data\\interim\\hannousse2021.csv",
+  "sha256": "3c525623b1b7abe6ca2bcafd63368ec89174772e1067e81f29e6f96c09668c50",
+  "rows_raw": 11430,
+  "rows_after_dropna": 11430,
+  "rows_after_normalisation_dedup": 11416,
+  "conflicting_label_urls_removed": 0,
+  "positives": 5701,
+  "negatives": 5715,
+  "unique_registered_domains": 6634,
+  "share_https": 0.38892782060266295,
+  "share_www": 0.4395585143658024,
+  "share_ip_host": 0.008496846531184302,
+  "has_timestamps": false,
+  "timestamp_min": null,
+  "timestamp_max": null
+}

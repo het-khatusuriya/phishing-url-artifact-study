@@ -1,0 +1,18 @@
+{
+  "name": "ebbu2017",
+  "path": "D:\\jiya research paper\\repo\\data\\interim\\ebbu2017.csv",
+  "sha256": "873cee4c8f0327039a3f2d22c50e0d4612181c875266c4d346f2523c0a72321f",
+  "rows_raw": 73575,
+  "rows_after_dropna": 73575,
+  "rows_after_normalisation_dedup": 54721,
+  "conflicting_label_urls_removed": 0,
+  "positives": 24811,
+  "negatives": 29910,
+  "unique_registered_domains": 21606,
+  "share_https": 0.20679446647539335,
+  "share_www": 0.4416951444600793,
+  "share_ip_host": 0.0028325505747336488,
+  "has_timestamps": false,
+  "timestamp_min": null,
+  "timestamp_max": null
+}

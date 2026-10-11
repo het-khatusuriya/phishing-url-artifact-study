@@ -1,0 +1,18 @@
+{
+  "name": "phiusiil",
+  "path": "D:\\jiya research paper\\repo\\data\\interim\\phiusiil.csv",
+  "sha256": "1511c42441eb0360b46c54aae4cf07c98c6affa898a2e205ac2cb65fb13dcfbf",
+  "rows_raw": 235795,
+  "rows_after_dropna": 235795,
+  "rows_after_normalisation_dedup": 234687,
+  "conflicting_label_urls_removed": 1,
+  "positives": 99838,
+  "negatives": 134849,
+  "unique_registered_domains": 175508,
+  "share_https": 0.7805800917818201,
+  "share_www": 0.7531946805745525,
+  "share_ip_host": 0.0025736406362516884,
+  "has_timestamps": false,
+  "timestamp_min": null,
+  "timestamp_max": null
+}
