@@ -24,7 +24,7 @@ from typing import Callable, Dict, Iterable, List
 import numpy as np
 import pandas as pd
 
-from .url_parse import parse_url, percent_decode
+from .url_parse import canonicalize, parse_url, percent_decode
 
 # --------------------------------------------------------------------------
 # Baseline 28 features: import the original extractor unchanged.
@@ -257,11 +257,26 @@ LEXICAL_V2_ARTIFACT_COLUMNS = [
     "host_num_labels", "num_subdomain_labels_psl",
 ]
 
+
+
+def extract_lexical_v2_canon(url: str) -> Dict:
+    """Artifact-neutral representation: canonicalise the string, then compute
+    lexical_v2 and drop the scheme/www/label-count columns."""
+    f = extract_lexical_v2(canonicalize(url))
+    for c in LEXICAL_V2_ARTIFACT_COLUMNS:
+        f.pop(c, None)
+    return f
+
+
+LEXICAL_V2_CANON_COLUMNS: List[str] = [c for c in LEXICAL_V2_COLUMNS if c not in LEXICAL_V2_ARTIFACT_COLUMNS]
+
 FEATURE_SETS: Dict[str, Dict] = {
     "baseline28": dict(fn=extract_baseline28, columns=BASELINE28_COLUMNS,
                        categorical=["tld_type"], artifact=BASELINE_ARTIFACT_COLUMNS),
     "lexical_v2": dict(fn=extract_lexical_v2, columns=LEXICAL_V2_COLUMNS,
                        categorical=[], artifact=LEXICAL_V2_ARTIFACT_COLUMNS),
+    "lexical_v2_canon": dict(fn=extract_lexical_v2_canon, columns=LEXICAL_V2_CANON_COLUMNS,
+                             categorical=[], artifact=[]),
 }
 
 

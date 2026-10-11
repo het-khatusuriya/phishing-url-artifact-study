@@ -1,41 +1,44 @@
 # bozkir2023grambeddings
 
 ## Citation
-Ahmet Selman Bozkir; Firat Coskun Dalgic; Murat Aydos (2023). *GramBeddings: A New Neural Network for URL Based Identification of Phishing Web Pages Through N-gram Embeddings*. Computers & Security 124:102964. DOI: 10.1016/j.cose.2022.102964 URL: https://doi.org/10.1016/j.cose.2022.102964
+Bozkir, Ahmet Selman; Dalgic, Firat Coskun; Aydos, Murat (2023). *GramBeddings: A New Neural Network for URL Based Identification of Phishing Web Pages Through N-gram Embeddings*. Computers & Security, 124, 102964. DOI: 10.1016/j.cose.2022.102964 URL: https://doi.org/10.1016/j.cose.2022.102964
+
+- Type: journal | Theme (L1): c-char-level | Access: abstract_only | Verified: full
+- Local PDF: none (not legally downloadable at time of search)
 
 ## Verification
-- Verified on 2026-10-11. Status: **yes**. Access: **abstract_only**.
-- Evidence: Crossref record for DOI 10.1016/j.cose.2022.102964 (title, authors, C&S vol. 124, art. 102964, 2023); dataset page web.cs.hacettepe.edu.tr/~selman/grambeddings-dataset/ (counts, period, access form).
+Checked 2026-10-11: Crossref record for DOI 10.1016/j.cose.2022.102964 (Comput. Secur. 124:102964, 2023) and DBLP listing; architecture/dataset details from the authors' GitHub README (fcdalgic/GramBeddings) and dataset page (web.cs.hacettepe.edu.tr/~selman/grambeddings-dataset/). Abstract text itself could not be retrieved.
 
 ## Problem
-Pre-trained embeddings are unavailable for URLs; need URL-native representation.
+URL-only phishing detection with n-gram embeddings; release of a large, time-spanning dataset.
 
 ## Method
-Learn n-gram embeddings during training; cascade CNN, LSTM and attention.
+Three n-gram granularities embedded in parallel; each channel CNN -> LSTM -> attention; concatenated for classification.
 
 ## Dataset(s)
-Download: request via Google Form linked on dataset page (no direct URL). License: not stated. Timestamps: not stated (collection window May 2019-Jun 2021 only). Labels: phishing/legitimate. Known problems: access gated; sources of legitimate URLs described only as 'custom crawler'.
+GramBeddings dataset (public via request form): 800,000 URLs, 400K phishing + 400K legitimate (custom crawler), collected May 2019-June 2021 (dataset page; TransURL Sec. 3)
 
 ## Features
-Character n-grams (raw URL).
+Learned n-gram embeddings.
 
 ## Evaluation protocol
-Hold-out on 800k set; comparison with prior URL models
+Not retrieved (publisher blocked)
 
-## Metrics reported (only numbers present in the source)
-Not verified (paywalled).
+## Metrics reported
+Not retrieved from the paper (TransURL Fig. 5 reproduces GramBeddings results on its dataset).
+(Only abstract/publisher-page information was available; no additional numbers should be attributed to this paper without checking the full text.)
 
 ## Main findings
-Large recent balanced URL corpus; deep model competitive.
+Multi-granular n-gram embeddings with attention are competitive; dataset spans 2+ years with weekly collection to reduce duplicates.
 
 ## Limitations
-- Authors' stated limitations: n/a
-- My assessment: Gated access hampers reproducibility; no metadata.
+- Stated by authors: Not retrieved.
+- Our own caveats: Legitimate URLs crawled from top sites; dataset access via form.
 
 ## Research gap
-n/a
+Cross-dataset tests appear only in follow-up work (TransURL).
 
-## Relevance to our project (score 4/5)
-Candidate large external set if access is granted; otherwise cite as comparison corpus.
+## Relevance to our project
+Largest recent public char-level benchmark (800k, 2019-2021); strong candidate external dataset and attention-based explainability precedent.
 
-Our project: lexical-feature + ensemble phishing URL detector with SHAP explanations on a ~250k binary URL dataset; planned work: probability calibration, controlled label-preserving URL-mutation robustness tests, latency/model-size comparison, and external-dataset evaluation.
+Relevance score: 4/5. (Our project: lexical-feature + ensemble + char-level phishing URL detector with explainability on a ~250k-URL binary dataset; concerns: dataset shortcut artifacts (https/www prevalence), domain-grouped and cross-dataset generalization, calibration, robustness.)

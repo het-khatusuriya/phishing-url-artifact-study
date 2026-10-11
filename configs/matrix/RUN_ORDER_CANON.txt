@@ -1,0 +1,8 @@
+A_v2canon_grouped
+B_v2canon_grouped
+LOCO_phiusiil_v2canon
+LOCO_lineage253k_v2canon
+LOCO_hannousse2021_v2canon
+LOCO_ebbu2017_v2canon
+LOCO_phishstorm_v2canon
+LOCO_iscx2016_v2canon

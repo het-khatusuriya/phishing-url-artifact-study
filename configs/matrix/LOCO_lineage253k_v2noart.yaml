@@ -1,0 +1,22 @@
+run_id: LOCO_lineage253k_v2noart
+dataset: pool_minus_lineage253k
+feature_set: lexical_v2
+drop_artifacts: true
+split: grouped
+models:
+- lr
+- rf
+- xgb
+seeds:
+- 42
+- 43
+- 44
+test_size: 0.2
+val_size: 0.2
+fpr_targets:
+- 0.01
+- 0.001
+external_tests:
+- lineage253k
+- phishtank
+notes: 'Leave-one-corpus-out: train on pool without lineage253k, test on lineage253k'

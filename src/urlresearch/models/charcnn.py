@@ -25,6 +25,9 @@ UNK = 1
 MAX_LEN = 200
 
 
+from ..features.url_parse import canonicalize  # noqa: F401  (re-exported)
+
+
 def url_to_ids(url: str, max_len: int = MAX_LEN) -> np.ndarray:
     ids = np.full(max_len, PAD, dtype=np.int64)
     s = str(url)[:max_len]

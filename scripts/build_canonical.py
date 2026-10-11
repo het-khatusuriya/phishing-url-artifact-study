@@ -42,7 +42,14 @@ def main():
         if a.only and d["name"] != a.only:
             continue
         if "concat" in d:
-            frames = [pd.read_parquet(OUT / f"{n}.parquet") for n in d["concat"]]
+            frames = []
+            for n in d["concat"]:
+                f = pd.read_parquet(OUT / f"{n}.parquet")
+                cap = d.get("cap_per_source")
+                if cap and len(f) > cap:   # stratified cap, deterministic
+                    f = (f.groupby("label", group_keys=False)
+                          .apply(lambda g: g.sample(min(len(g), int(round(cap * len(g) / len(f)))), random_state=42)))
+                frames.append(f)
             df = concat_datasets(frames)
             df.to_parquet(OUT / f"{d['name']}.parquet")
             print(f"{d['name']}: concat of {d['concat']} -> {len(df)} rows, pos={int(df.label.sum())}")

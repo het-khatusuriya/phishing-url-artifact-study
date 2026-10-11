@@ -68,3 +68,11 @@ def test_charcnn_trains_and_predicts():
     assert encode_urls(["ab"], 5).tolist() == [[97, 98, 0, 0, 0]]
     from sklearn.metrics import roc_auc_score
     assert roc_auc_score(df.label.values[200:], p[:, 1]) > 0.8
+
+
+def test_runner_charcnn_canon(canonical):
+    cfg = runner.RunConfig(run_id="smoke_canon", dataset="synth", feature_set="lexical_v2", split="grouped",
+                           models=["charcnn_canon", "charcnn"], seeds=[1], external_tests=["synth"],
+                           charcnn={"epochs": 1, "batch_size": 64, "filters": 8, "dense": 8, "threads": 2})
+    df = runner.run(cfg, canonical / "results")
+    assert {"charcnn_canon", "charcnn"} <= set(df.model)

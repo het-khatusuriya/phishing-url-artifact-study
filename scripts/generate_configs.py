@@ -41,9 +41,12 @@ for corpus, tag in (("phiusiil", "A"), ("lineage253k", "B")):
     add(f"{tag}_v2_random", corpus, "lexical_v2", "random", False, TAB_MODELS + ["lgbm"], SEEDS5)
     add(f"{tag}_v2_grouped", corpus, "lexical_v2", "grouped", False, TAB_MODELS + ["lgbm"], SEEDS5)
     add(f"{tag}_v2noart_grouped", corpus, "lexical_v2", "grouped", True, TAB_MODELS + ["lgbm"], SEEDS5)
-    # E7: character models (3 seeds, CPU budget)
-    add(f"{tag}_char_grouped", corpus, "lexical_v2", "grouped", True, ["charcnn", "charcnn_hybrid"], [42, 43, 44],
-        extra={"charcnn": {"epochs": 8, "batch_size": 256, "patience": 2, "threads": 10, "max_train_minutes": 40}})
+
+# E7: character models (3 seeds, CPU budget) -- queued after all tabular runs
+for corpus, tag in (("phiusiil", "A"), ("lineage253k", "B")):
+    add(f"{tag}_char_grouped", corpus, "lexical_v2", "grouped", True, ["charcnn", "charcnn_canon", "charcnn_hybrid"],
+        [42, 43, 44], extra={"charcnn": {"epochs": 6, "batch_size": 256, "patience": 2, "threads": 8,
+                                         "max_train_minutes": 30}})
 
 (ROOT / "configs" / "matrix" / "RUN_ORDER.txt").write_text("\n".join(runs) + "\n")
 print("\n".join(runs))

@@ -5,6 +5,7 @@ drop_artifacts: true
 split: grouped
 models:
 - charcnn
+- charcnn_canon
 - charcnn_hybrid
 seeds:
 - 42
@@ -26,8 +27,9 @@ external_tests:
 - urlhaus
 - openphish
 charcnn:
-  epochs: 8
+  epochs: 5
   batch_size: 256
   patience: 2
-  threads: 10
-  max_train_minutes: 40
+  threads: 8
+  max_train_minutes: 20
+  max_len: 160

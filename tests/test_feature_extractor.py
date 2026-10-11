@@ -114,3 +114,14 @@ class TestLexicalV2:
         df = feature_frame(["http://a.com", "https://www.b.org/x"], "lexical_v2", drop_artifacts=True)
         assert "https_scheme" not in df.columns and "has_www_prefix" not in df.columns
         assert len(df) == 2
+
+
+def test_canonical_features_invariant_to_scheme_and_www():
+    from src.urlresearch.features.lexical import extract_lexical_v2_canon, LEXICAL_V2_CANON_COLUMNS
+    from src.urlresearch.features.url_parse import canonicalize
+    variants = ["https://www.example.com/login?x=1", "http://example.com/login?x=1",
+                "example.com/login?x=1", "www.example.com/login?x=1", "HTTPS://www2.example.com/login?x=1"]
+    feats = [extract_lexical_v2_canon(v) for v in variants[:4]]
+    assert all(f == feats[0] for f in feats)
+    assert list(feats[0].keys()) == LEXICAL_V2_CANON_COLUMNS
+    assert canonicalize("a.com/www.b") == "a.com/www.b"

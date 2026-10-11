@@ -1,0 +1,12 @@
+LOCO_phiusiil_v2
+LOCO_phiusiil_v2noart
+LOCO_lineage253k_v2
+LOCO_lineage253k_v2noart
+LOCO_hannousse2021_v2
+LOCO_hannousse2021_v2noart
+LOCO_ebbu2017_v2
+LOCO_ebbu2017_v2noart
+LOCO_phishstorm_v2
+LOCO_phishstorm_v2noart
+LOCO_iscx2016_v2
+LOCO_iscx2016_v2noart

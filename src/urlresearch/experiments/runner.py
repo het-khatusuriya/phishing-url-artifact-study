@@ -136,13 +136,18 @@ def run(cfg: RunConfig, out_root: Optional[Path] = None) -> pd.DataFrame:
         y = df["label"].values
         for mname in cfg.models:
             t0 = time.time()
-            if mname == "charcnn" or mname == "charcnn_hybrid":
-                from ..models.charcnn import CharCNNClassifier, CharCNNConfig
+            if mname.startswith("charcnn"):
+                from ..models.charcnn import CharCNNClassifier, CharCNNConfig, canonicalize
                 ccfg = CharCNNConfig(seed=seed, **cfg.charcnn)
                 use_lex = mname == "charcnn_hybrid"
+                canon = mname == "charcnn_canon"
                 lex = X[numeric].values.astype(np.float32) if use_lex else None
                 clf = CharCNNClassifier(ccfg, lexical_dim=len(numeric) if use_lex else 0)
                 urls = df["url"].values
+                ext_urls = {n: e[0]["url"].values for n, e in ext_sets.items()}
+                if canon:
+                    urls = np.array([canonicalize(u) for u in urls], dtype=object)
+                    ext_urls = {n: np.array([canonicalize(u) for u in v], dtype=object) for n, v in ext_urls.items()}
                 clf.fit(urls[tr], y[tr], urls[va], y[va],
                         lex=lex[tr] if use_lex else None, val_lex=lex[va] if use_lex else None)
                 fit_s = time.time() - t0
@@ -150,9 +155,9 @@ def run(cfg: RunConfig, out_root: Optional[Path] = None) -> pd.DataFrame:
                     return clf.predict_proba(idx_urls, idx_lex)[:, 1]
                 t1 = time.time(); p_te = predict(urls[te], lex[te] if use_lex else None); lat = (time.time() - t1) / len(te)
                 p_va = predict(urls[va], lex[va] if use_lex else None)
-                p_tr = predict(urls[tr], lex[tr] if use_lex else None)
+                p_tr = np.full(len(tr), np.nan)  # train-set scoring skipped for char models (CPU budget)
                 size = sum(p.numel() * 4 for p in clf.model.parameters())
-                ext_probs = {n: predict(e[0]["url"].values, e[1][numeric].values.astype(np.float32) if use_lex else None)
+                ext_probs = {n: predict(ext_urls[n], e[1][numeric].values.astype(np.float32) if use_lex else None)
                              for n, e in ext_sets.items()}
                 (out / f"history_{mname}_{seed}.json").write_text(json.dumps(clf.history))
             else:

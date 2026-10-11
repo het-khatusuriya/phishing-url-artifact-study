@@ -1,47 +1,44 @@
 # sahoo2017survey
 
 ## Citation
-Doyen Sahoo, Chenghao Liu, Steven C. H. Hoi (2017). Malicious URL Detection using Machine Learning: A Survey. *arXiv preprint*. arXiv: 1701.07179
+Sahoo, Doyen; Liu, Chenghao; Hoi, Steven C. H. (2017). *Malicious URL Detection using Machine Learning: A Survey*. arXiv preprint arXiv:1701.07179 (v3, 2019). URL: https://arxiv.org/abs/1701.07179
 
-- URL: https://arxiv.org/abs/1701.07179
-- Access status: full_text (research/papers/sahoo2017survey.pdf)
-- Verified: yes
-- Theme (L2): f - surveys & SoKs discussing evaluation
-- Relevance score (1-5): 2
+- Type: preprint | Theme (L1): a-foundational-lexical | Access: full_text | Verified: full
+- Local PDF: research/papers/sahoo2017survey.pdf
 
 ## Verification
-arXiv abstract page and arXiv API record 1701.07179 (v1 Jan 2017, v3 Aug 2019) checked 2026-10-11.
+Checked 2026-10-11: arXiv API record 1701.07179 (authors, dates) and arXiv PDF read. No DOI (preprint).
 
 ## Problem
-Formalise malicious URL detection as an ML problem and survey feature representations, algorithms and practical issues.
+Structure the literature on ML-based malicious URL detection.
 
 ## Method
-Formalises malicious URL detection as ML; taxonomy of feature representations (blacklist, lexical, host, content, context) and learning algorithms incl. online learning
+Defines the learning problem, surveys feature families and learning algorithms, discusses system design and open challenges.
 
 ## Dataset(s)
-Survey; discusses URL data sources and 'detection as a service' design
+Survey (no new data); reviews datasets up to 2.4M URLs (Ma et al.)
 
 ## Features
-Lexical bag-of-words, statistical URL features, host-based, content
+Catalogue: lexical (BoW, n-grams, statistics), host-based, content, context/popularity.
 
 ## Evaluation protocol
-Discusses practical issues: concept drift, label acquisition, feature cost; open problems
+n/a (survey)
 
 ## Metrics reported
-Qualitative.
+n/a
+(Numbers taken from the full text; section/table references given where identified.)
 
 ## Main findings
-Lexical features dominate deployed designs; practical systems need online/incremental learning because URL distributions drift.
+Lexical BoW features scale best; online learning suits drift; deep representation learning was emerging (precursor to URLNet).
 
 ## Limitations
-**Authors' stated:** Pre-2017 literature.
-
-**Our caveats:** Does not treat dataset artefacts.
+- Stated by authors: Points out lack of large public benchmarks, concept drift, adversarial evasion, and short-lived URLs (open-challenges section).
+- Our own caveats: Pre-dates transformers; benchmark discussion dated.
 
 ## Research gap
-N/A
+Standardised benchmarks and temporal evaluation protocols.
 
 ## Relevance to our project
-Background survey for lexical URL features and the online-learning view of drift.
+Background/taxonomy citation for the related-work section; its open-challenge list matches our concerns (drift, benchmarks).
 
-> Project context: Our detector: lexical-feature + ensemble phishing-URL classifier trained on a ~250k binary URL dataset in which legitimate URLs are ~93% https and mostly 'www.' while phishing URLs are ~50% https; it predicted https://google.com/ as malicious. Planned: domain-grouped splits, artifact-removal ablations, cross-dataset tests, calibration and robustness analysis.
+Relevance score: 4/5. (Our project: lexical-feature + ensemble + char-level phishing URL detector with explainability on a ~250k-URL binary dataset; concerns: dataset shortcut artifacts (https/www prevalence), domain-grouped and cross-dataset generalization, calibration, robustness.)

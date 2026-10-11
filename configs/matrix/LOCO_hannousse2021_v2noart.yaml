@@ -1,0 +1,22 @@
+run_id: LOCO_hannousse2021_v2noart
+dataset: pool_minus_hannousse2021
+feature_set: lexical_v2
+drop_artifacts: true
+split: grouped
+models:
+- lr
+- rf
+- xgb
+seeds:
+- 42
+- 43
+- 44
+test_size: 0.2
+val_size: 0.2
+fpr_targets:
+- 0.01
+- 0.001
+external_tests:
+- hannousse2021
+- phishtank
+notes: 'Leave-one-corpus-out: train on pool without hannousse2021, test on hannousse2021'

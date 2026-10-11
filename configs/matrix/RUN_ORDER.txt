@@ -4,11 +4,11 @@ A_b28noart_grouped
 A_v2_random
 A_v2_grouped
 A_v2noart_grouped
-A_char_grouped
 B_b28_random
 B_b28_grouped
 B_b28noart_grouped
 B_v2_random
 B_v2_grouped
 B_v2noart_grouped
+A_char_grouped
 B_char_grouped

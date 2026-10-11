@@ -1,0 +1,8 @@
+# Leave-one-corpus-out pools: each pool = all other corpora, capped at 50k rows per source (stratified)
+datasets:
+  - {name: pool_minus_phiusiil, concat: [lineage253k, hannousse2021, ebbu2017, phishstorm, iscx2016], cap_per_source: 50000}
+  - {name: pool_minus_lineage253k, concat: [phiusiil, hannousse2021, ebbu2017, phishstorm, iscx2016], cap_per_source: 50000}
+  - {name: pool_minus_hannousse2021, concat: [phiusiil, lineage253k, ebbu2017, phishstorm, iscx2016], cap_per_source: 50000}
+  - {name: pool_minus_ebbu2017, concat: [phiusiil, lineage253k, hannousse2021, phishstorm, iscx2016], cap_per_source: 50000}
+  - {name: pool_minus_phishstorm, concat: [phiusiil, lineage253k, hannousse2021, ebbu2017, iscx2016], cap_per_source: 50000}
+  - {name: pool_minus_iscx2016, concat: [phiusiil, lineage253k, hannousse2021, ebbu2017, phishstorm], cap_per_source: 50000}

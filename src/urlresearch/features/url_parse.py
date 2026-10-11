@@ -122,3 +122,16 @@ def percent_decode(text: str, rounds: int = 2) -> str:
             break
         out = new
     return out
+
+
+_SCHEME_WWW_RE = re.compile(r"^(?:[a-zA-Z][a-zA-Z0-9+.-]*://)?(?:www\d?\.)?")
+
+
+def canonicalize(url: object) -> str:
+    """Remove collection-format artifacts: the scheme and a leading 'www.'/'wwwN.' label.
+
+    Everything else (host, path, query, fragment, case) is preserved, so all
+    remaining lexical evidence is computed on identical terms for URLs that
+    were recorded with or without a scheme / www prefix.
+    """
+    return _SCHEME_WWW_RE.sub("", "" if url is None else str(url).strip(), count=1)

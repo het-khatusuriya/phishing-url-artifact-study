@@ -11,7 +11,8 @@ import pandas as pd
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
-ORDER = ROOT / "configs" / "matrix" / "RUN_ORDER.txt"
+import os
+ORDER = ROOT / "configs" / "matrix" / os.environ.get("RUN_ORDER_FILE", "RUN_ORDER.txt")
 LOG = ROOT / "results" / "logs" / "run_all.log"
 LOG.parent.mkdir(parents=True, exist_ok=True)
 

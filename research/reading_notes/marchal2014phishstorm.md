@@ -1,41 +1,44 @@
 # marchal2014phishstorm
 
 ## Citation
-Samuel Marchal; Jerome Francois; Radu State; Thomas Engel (2014). *PhishStorm: Detecting Phishing With Streaming Analytics*. IEEE Transactions on Network and Service Management 11(4):458-471. DOI: 10.1109/TNSM.2014.2377295 URL: https://doi.org/10.1109/TNSM.2014.2377295
+Marchal, Samuel; Francois, Jerome; State, Radu; Engel, Thomas (2014). *PhishStorm: Detecting Phishing With Streaming Analytics*. IEEE Transactions on Network and Service Management, 11(4), pp. 458-471. DOI: 10.1109/TNSM.2014.2377295 URL: https://doi.org/10.1109/TNSM.2014.2377295
+
+- Type: journal | Theme (L1): a-foundational-lexical | Access: full_text | Verified: full
+- Local PDF: research/papers/marchal2014phishstorm.pdf
 
 ## Verification
-- Verified on 2026-10-11. Status: **yes**. Access: **abstract_only**.
-- Evidence: Crossref record for DOI 10.1109/TNSM.2014.2377295 (title, authors, TNSM 11(4):458-471, 2014); Aalto dataset page (counts, label semantics, DOI, file urlset.csv.zip 3.24 MB). HAL preprint page blocked by bot protection; PDF not obtained.
+Checked 2026-10-11: Author-hosted PDF (orbilu.uni.lu, University of Luxembourg repository) read; Crossref record for DOI 10.1109/TNSM.2014.2377295 (TNSM 11(4), 458-471).
 
 ## Problem
-Real-time phishing URL detection using word relatedness inside the URL.
+Real-time phishing URL rating for proxies/mail servers using URL-word relatedness.
 
 ## Method
-Compute intra-URL relatedness features from search-engine query data; classify in a streaming setting.
+Splits URL into registered domain (mld.ps) vs rest; computes relatedness among words using search-engine query logs; features on word counts, brand presence, Alexa rank; ML classification and a confidence-rated score; Bloom-filter streaming design.
 
 ## Dataset(s)
-Download: https://research.aalto.fi/en/datasets/phishstorm-phishing-legitimate-url-dataset (urlset.csv.zip). License: unspecified. Timestamps: none. Labels: 0 legitimate, 1 phishing. Known problems: 2014 vintage; feature columns depend on 2014 search-engine statistics; URLs in 'domain' column.
+96,018 URLs: 48,009 phishing (PhishTank, from 53,089 unique) + 48,009 legitimate (DMOZ); released as urlset.csv (Sec. VI-A)
 
 ## Features
-12 intra-URL relatedness features (per dataset description).
+Intra-URL relatedness (12 features), word counts, Alexa ranking of mld.ps.
 
 ## Evaluation protocol
-Hold-out; ~95% classification rate reported
+10-fold cross-validation, 100 runs (Sec. VI-B)
 
-## Metrics reported (only numbers present in the source)
-~95% classification rate (search-result summary of abstract; not verified from full text).
+## Metrics reported
+Accuracy 94.91% with 1.44% FPR after threshold tuning (abstract; Sec. VI-C), 95.66% at default threshold; features 1-9 alone 93.48% (Sec. VI-C).
+(Numbers taken from the full text; section/table references given where identified.)
 
 ## Main findings
-Intra-URL semantics help detection.
+Legitimate URLs show coherent word relatedness across domain and path; phishing URLs do not.
 
 ## Limitations
-- Authors' stated limitations: n/a
-- My assessment: Dated; features not reproducible today.
+- Stated by authors: Depends on search-engine query APIs; relatedness changes over time.
+- Our own caveats: The released 'PhishStorm' dataset is widely reused (e.g., in Kaggle mixes); DMOZ benign class again homepage-heavy.
 
 ## Research gap
-n/a
+External-API dependence conflicts with offline/lexical deployment.
 
-## Relevance to our project (score 3/5)
-Upstream source of part of the Kaggle 'Malicious URLs' corpus; useful for provenance.
+## Relevance to our project
+Source of a widely reused 96k dataset; useful for cross-dataset tests and to discuss API-dependent features we deliberately avoid.
 
-Our project: lexical-feature + ensemble phishing URL detector with SHAP explanations on a ~250k binary URL dataset; planned work: probability calibration, controlled label-preserving URL-mutation robustness tests, latency/model-size comparison, and external-dataset evaluation.
+Relevance score: 3/5. (Our project: lexical-feature + ensemble + char-level phishing URL detector with explainability on a ~250k-URL binary dataset; concerns: dataset shortcut artifacts (https/www prevalence), domain-grouped and cross-dataset generalization, calibration, robustness.)

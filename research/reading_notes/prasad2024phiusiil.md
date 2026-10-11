@@ -1,47 +1,44 @@
 # prasad2024phiusiil
 
 ## Citation
-Arvind Prasad, Shalini Chandra (2024). PhiUSIIL: A diverse security profile empowered phishing URL detection framework based on similarity index and incremental learning. *Computers & Security*, art. 103545. DOI: 10.1016/j.cose.2023.103545
+Prasad, Arvind; Chandra, Shalini (2024). *PhiUSIIL: A diverse security profile empowered phishing URL detection framework based on similarity index and incremental learning*. Computers & Security, 136, 103545. DOI: 10.1016/j.cose.2023.103545 URL: https://doi.org/10.1016/j.cose.2023.103545
 
-- URL: https://doi.org/10.1016/j.cose.2023.103545
-- Access status: paywalled
-- Verified: yes
-- Theme (L2): d - domain-grouped evaluation / dataset provenance
-- Relevance score (1-5): 4
+- Type: journal | Theme (L1): b-ensemble-hybrid | Access: abstract_only | Verified: full
+- Local PDF: none (not legally downloadable at time of search)
 
 ## Verification
-Semantic Scholar record (DOI, Computers & Security, vol. 136 art. 103545) and UCI ML Repository dataset page (235,795 instances, 54 features, 134,850 legitimate / 100,945 phishing, donated 2024-03-03) checked 2026-10-11.
+Checked 2026-10-11: Crossref record for DOI 10.1016/j.cose.2023.103545 (Comput. Secur. 136, 103545, 2024); UCI ML Repository dataset page #967 (dataset statistics and citation). Abstract text could not be retrieved (ScienceDirect blocked; Semantic Scholar/OpenAlex abstract empty).
 
 ## Problem
-Build a large, diverse phishing-URL dataset and an incremental-learning detector using URL similarity features.
+Phishing URL detection with similarity-based features and incremental model updates; release of a large feature dataset.
 
 ## Method
-Similarity-index features (URLSimilarityIndex etc.) plus incremental learning framework
+Computes URLSimilarityIndex, CharContinuationRate, TLDLegitimateProb and other URL/HTML-derived features; incremental learning to adapt to new data.
 
 ## Dataset(s)
-PhiUSIIL Phishing URL dataset: 235,795 URLs (134,850 legitimate, 100,945 phishing) with 54 URL and page-derived features (UCI id 967)
+PhiUSIIL dataset (UCI #967, CC BY 4.0): 235,795 URLs (134,850 legitimate, 100,945 phishing), 54 features from URL and page source
 
 ## Features
-URL lexical features (length, counts, TLD, https flag, subdomain counts), similarity index, page features
+54 features (URL lexical + HTML indicators), several derived (similarity index, TLD legitimate probability).
 
 ## Evaluation protocol
-Not accessible (paywalled); UCI page gives dataset composition only
+Not retrievable (publisher page blocked); UCI page documents dataset only
 
 ## Metrics reported
-Not accessible from abstract/landing page. (Full text not accessed; numbers restricted to the abstract/landing page.)
+Not retrieved.
+(Only abstract/publisher-page information was available; no additional numbers should be attributed to this paper without checking the full text.)
 
 ## Main findings
-Provides the dataset most likely matching our ~250k binary URL corpus; its legitimate class is dominated by popular https/'www.' sites (observation from our own data, to be confirmed by our artefact statistics).
+Dataset is now a common benchmark (used by Yi 2026 and others).
 
 ## Limitations
-**Authors' stated:** Not accessible.
-
-**Our caveats:** If our data is PhiUSIIL, the https/www skew is a property of the dataset construction, and results on it should be accompanied by cross-dataset tests. Several features (e.g., similarity index) are near-label-leaking by construction.
+- Stated by authors: Not retrieved.
+- Our own caveats: Dataset mixes URL and page-source features and some derived features (e.g., TLDLegitimateProb) risk label leakage; collection windows undocumented on UCI page.
 
 ## Research gap
-Independent audit of PhiUSIIL artefacts and duplicate domains.
+Leakage audit of derived features.
 
 ## Relevance to our project
-Dataset provenance reference for our own data; the artefact audit we plan is effectively an audit of this dataset.
+Candidate external dataset (235k) similar in scale to ours; must audit feature leakage before cross-dataset use.
 
-> Project context: Our detector: lexical-feature + ensemble phishing-URL classifier trained on a ~250k binary URL dataset in which legitimate URLs are ~93% https and mostly 'www.' while phishing URLs are ~50% https; it predicted https://google.com/ as malicious. Planned: domain-grouped splits, artifact-removal ablations, cross-dataset tests, calibration and robustness analysis.
+Relevance score: 3/5. (Our project: lexical-feature + ensemble + char-level phishing URL detector with explainability on a ~250k-URL binary dataset; concerns: dataset shortcut artifacts (https/www prevalence), domain-grouped and cross-dataset generalization, calibration, robustness.)
