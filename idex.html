@@ -118,16 +118,16 @@
                 
                 const data = await response.json();
                 
-                const isPhishing = data.prediction === 'Phishing';
+                const isPhishing = data.flagged === true;
                 const className = isPhishing ? 'phishing' : 'legitimate';
-                const icon = isPhishing ? '⚠️' : '✅';
+                const icon = isPhishing ? '⚠️' : 'ℹ️';
                 
                 resultDiv.className = `result show ${className}`;
                 resultDiv.innerHTML = `
                     <div class="result-text">
                         <strong>${icon} Result: ${data.prediction}</strong><br>
                         <strong>URL:</strong> ${data.url}<br>
-                        <strong>Confidence:</strong> ${data.confidence.toFixed(2)}%
+                        <strong>Model estimate P(malicious):</strong> ${data.confidence.toFixed(2)}% (threshold ${(100*data.threshold).toFixed(1)}%, ${data.confidence_band} margin)<br><small>${data.statement}</small>
                     </div>
                 `;
             } catch (error) {
