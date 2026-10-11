@@ -1,0 +1,7 @@
+run_id: lexical_v2_grouped
+dataset: main
+feature_set: lexical_v2
+split: grouped
+models: [lr, rf, xgb, lgbm, softvote]
+seeds: [42, 43, 44, 45, 46]
+notes: "Improved feature set, grouped split, five seeds."

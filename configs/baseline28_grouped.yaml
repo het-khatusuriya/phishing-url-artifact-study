@@ -1,0 +1,7 @@
+run_id: baseline28_grouped
+dataset: main
+feature_set: baseline28
+split: grouped
+models: [lr, rf, xgb, softvote]
+seeds: [42, 43, 44, 45, 46]
+notes: "Same features/models, registered-domain-grouped split, five seeds."

@@ -1,0 +1,11 @@
+run_id: baseline28_random
+dataset: main
+feature_set: baseline28
+drop_artifacts: false
+split: random
+models: [lr, rf, xgb, softvote]
+seeds: [42]
+test_size: 0.2
+val_size: 0.2
+fpr_targets: [0.01, 0.001]
+notes: "Faithful reproduction of the original repository protocol: 28 lexical features, one-hot TLD (fit on train only), stratified 60/20/20, seed 42."

@@ -1,0 +1,12 @@
+# Decision Log
+
+| Date | Decision | Rationale | Alternatives considered |
+|---|---|---|---|
+| 2026-10-11 | Work on branch `research-v2`; original modules in `src/` untouched; new code in `src/urlresearch/`. | Preserve the baseline for fair comparison; the audit shows the original package is mostly empty files, so a clean sub-package is clearer than editing in place. | Rewrite in place (rejected: destroys baseline fidelity). |
+| 2026-10-11 | Reuse the original `extract_features` verbatim for the `baseline28` feature set (wrapped to never raise). | Reproduction must use the exact original feature code. | Re-implementing (risk of silent divergence). |
+| 2026-10-11 | One-hot encoding of `tld_type` is fitted on the training partition only, with `min_frequency=20` and an "infrequent" bucket. | The original fit `get_dummies` on the full dataset before splitting (521 columns). Train-only fitting is required by the leakage rules; rare TLDs would otherwise act as per-source identifiers. Documented as a deliberate deviation in the reproduction report. | Exact 521-column replication (kept as an option if the raw data arrive; difference expected to be small). |
+| 2026-10-11 | Public-suffix extraction uses the tldextract bundled snapshot (no network). | Reproducibility and offline feature extraction. | Live PSL fetch (non-deterministic). |
+| 2026-10-11 | Grouping key for grouped splits = registered domain (domain + public suffix), or the IP literal for IP hosts. | Pages of the same site share ownership/infrastructure; this is the standard leakage unit in URL work. | Hostname grouping (too fine: `a.example.com` vs `b.example.com` leak). |
+| 2026-10-11 | Thresholds are selected on the validation split only, with three policies: 0.5, max-F1 on validation, and FPR-constrained (1 %, 0.1 %) on validation. | Security deployments operate at fixed false-positive budgets; test-set threshold tuning would be leakage. | Test-set tuning (rejected). |
+| 2026-10-11 | Deep baseline = small character CNN (eXpose/URLNet style) on CPU; no transformer fine-tuning. | Machine has 12 CPU cores and no GPU; a transformer baseline would not be reproducible in reasonable time here. Documented as a limitation. | URLTran/URLBERT fine-tuning (future work). |
+| 2026-10-11 | Original dataset unavailable → experiments use documented public datasets until the user supplies `raw_data.csv`. | The repository does not contain or document its data; without data nothing is reproducible. | Waiting (rejected: blocks all progress). |

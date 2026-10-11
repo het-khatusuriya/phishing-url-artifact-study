@@ -1,0 +1,8 @@
+run_id: charcnn_grouped
+dataset: main
+feature_set: lexical_v2
+split: grouped
+models: [charcnn, charcnn_hybrid]
+seeds: [42, 43, 44]
+charcnn: {epochs: 8, batch_size: 256, patience: 2, threads: 10, max_train_minutes: 45}
+notes: "Character CNN and hybrid (char + lexical_v2) on the grouped split."
