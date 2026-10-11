@@ -1,0 +1,10 @@
+check,value
+Original row count,253098
+Cleaned row count,253098
+Rows removed,0
+Missing URL values after cleaning,0
+Missing label values after cleaning,0
+Exact duplicate rows after cleaning,0
+Duplicate URLs after cleaning,0
+URL values changed by whitespace cleaning,195
+Label values changed by standardization,0

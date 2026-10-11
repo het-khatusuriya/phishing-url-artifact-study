@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Malicious URL Detector</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 500px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        button {
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #764ba2;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            display: none;
+        }
+        .result.show {
+            display: block;
+        }
+        .legitimate {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+        .phishing {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
+        .result-text {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .loading {
+            text-align: center;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔒 Malicious URL Detector</h1>
+        
+        <div class="input-group">
+            <input type="text" id="urlInput" placeholder="Enter URL (e.g., https://www.google.com)">
+            <button onclick="predictURL()">Predict</button>
+        </div>
+        
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        async function predictURL() {
+            const url = document.getElementById('urlInput').value;
+            const resultDiv = document.getElementById('result');
+            
+            if (!url) {
+                alert('Please enter a URL!');
+                return;
+            }
+            
+            resultDiv.innerHTML = '<div class="loading">🔄 Analyzing...</div>';
+            resultDiv.classList.add('show');
+            
+            try {
+                const response = await fetch('/api/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: url })
+                });
+                
+                const data = await response.json();
+                
+                const isPhishing = data.prediction === 'Phishing';
+                const className = isPhishing ? 'phishing' : 'legitimate';
+                const icon = isPhishing ? '⚠️' : '✅';
+                
+                resultDiv.className = `result show ${className}`;
+                resultDiv.innerHTML = `
+                    <div class="result-text">
+                        <strong>${icon} Result: ${data.prediction}</strong><br>
+                        <strong>URL:</strong> ${data.url}<br>
+                        <strong>Confidence:</strong> ${data.confidence.toFixed(2)}%
+                    </div>
+                `;
+            } catch (error) {
+                resultDiv.className = 'result show phishing';
+                resultDiv.innerHTML = `<div class="result-text"><strong>❌ Error:</strong> ${error}</div>`;
+            }
+        }
+        
+        // Allow Enter key to predict
+        document.getElementById('urlInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') predictURL();
+        });
+    </script>
+</body>
+</html>

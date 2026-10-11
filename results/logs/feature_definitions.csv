@@ -1,0 +1,29 @@
+feature_number,feature_name,description
+1,url_length,Total URL character count
+2,num_dots,Count of period characters
+3,num_slashes,Count of slash characters
+4,num_hyphens,Count of hyphen characters
+5,num_underscores,Count of underscore characters
+6,num_special_characters,Count of non-alphanumeric characters
+7,num_digits,Count of numeric characters
+8,digit_to_letter_ratio,Digits divided by alphabetic characters
+9,path_length,URL path character count
+10,query_string_length,Query-string character count
+11,num_query_parameters,Number of parsed query parameters
+12,num_at_symbols,Count of at symbols
+13,num_double_slash_occurrences,Count of double-slash occurrences
+14,url_entropy,Shannon entropy of the URL
+15,domain_length,Hostname character count
+16,num_subdomains,Number of hostname subdomains
+17,tld_type,Final hostname label
+18,suspicious_tld,Whether the TLD is in the suspicious-TLD list
+19,punycode_idn_usage,Whether the hostname contains xn--
+20,ip_address_instead_of_domain,Whether the hostname is an IP address
+21,https_usage,Whether the scheme is HTTPS
+22,url_shortening_service,Whether the hostname matches a shortening-service domain
+23,encoded_characters,Count of percent characters
+24,hexadecimal_characters,Count of hexadecimal-looking sequences
+25,suspicious_keywords,Whether a suspicious keyword occurs
+26,brand_name_presence,Whether a listed brand name occurs
+27,excessive_hyphens,Whether hyphen count exceeds the threshold
+28,random_looking_domain,Whether the hostname meets the random-looking rule

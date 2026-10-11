@@ -1,0 +1,7 @@
+URL,Prediction,Confidence,Legitimate_Probability,Malicious_Probability,Top_SHAP_Features,SHAP_Impacts
+https://www.wikipedia.org,LEGITIMATE,62.2,62.2,37.8,"tld_com, https_usage, url_entropy, hexadecimal_characters, num_subdomains","0.1332, -0.0773, -0.0622, -0.0457, -0.0355"
+http://192.0.2.1/login/verify/account,MALICIOUS,99.58,0.42,99.58,"https_usage, suspicious_keywords, ip_address_instead_of_domain, tld_com, url_shortening_service","0.2086, 0.1156, 0.0633, 0.0295, 0.018"
+https://goggle.com,MALICIOUS,80.79,19.21,80.79,"num_subdomains, num_dots, domain_length, url_entropy, tld_com","0.3216, 0.0736, -0.0406, -0.0404, 0.0333"
+https://goggle.com,MALICIOUS,80.79,19.21,80.79,"num_subdomains, domain_length, num_dots, tld_ir, url_length","0.2618, -0.0692, 0.0566, -0.0301, -0.0229"
+https://google.com/,MALICIOUS,88.13,11.87,88.13,"num_subdomains, num_dots, domain_length, tld_com, url_entropy","0.3099, 0.0697, -0.0576, 0.0483, -0.0422"
+https://www.goggle.com,LEGITIMATE,81.91,81.91,18.09,"url_entropy, hexadecimal_characters, domain_length, https_usage, random_looking_domain","-0.084, -0.0778, -0.0711, -0.0377, -0.0253"
