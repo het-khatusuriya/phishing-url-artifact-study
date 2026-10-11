@@ -61,6 +61,7 @@ The 28 features are purely lexical (no host/WHOIS/content lookups), which is goo
 - `brand_name_presence` and `suspicious_keywords` are substring matches (e.g. "apple" matches "pineapple", "account" matches "accountant").
 - `url_shortening_service`, `suspicious_tld`: small hard-coded lists (14 and 20 entries).
 - `random_looking_domain`: hand-set thresholds (length ≥ 12, ≥ 3 digits, entropy ≥ 3.5) with no justification.
+- **Scheme-less URLs break every host feature (verified 2026-10-11).** `urlsplit("visitcanada.com/")` returns an empty hostname, so the original extractor sets `domain_length = 0`, `num_subdomains = 0`, `tld_type = "ip"` and treats the whole string as the path. Input `paypal.com.secure-login.xyz/webscr` gets the same host features as any other scheme-less URL. Many public corpora (Kaggle/HuggingFace lineage: 99.8 % scheme-less) store URLs this way, and users often paste URLs without a scheme, so the deployed app silently degrades on such input. Re-running the unmodified pipeline on the scheme-less corpus B produced only 6 TLD columns and 84.8 % test accuracy (`results/reproduction/lineage253k/`). Regression test: `tests/test_feature_extractor.py::test_original_extractor_scheme_less_bug`.
 - No handling of: ports, userinfo, fragments, IDN decoding (only literal `xn--`), percent-decoding before analysis, path depth, longest token, token statistics, registered-domain extraction, digit runs in hostname, or character n-grams.
 - `urlsplit` on malformed input (e.g. `http://[::1`) raises `ValueError`; there is no guard, so `app.py` returns HTTP 400 with the exception text.
 
@@ -106,7 +107,7 @@ Findings about these numbers:
 | Paths | Absolute Windows paths in NB outputs; notebooks use `Path.cwd().parent`, which works only when the kernel is started inside `notebooks/`. |
 | Tests | None (four empty files). |
 | Random seeds | `random_state=42` for split and models; `np.random.choice` in NB09 unseeded; KernelExplainer sampling unseeded. |
-| Can the stored metrics be reproduced today? | **Not without the raw CSV.** With it, NB02→NB07 should reproduce them up to library-version differences (XGBoost/sklearn versions differ between the author's environment and ours). |
+| Can the stored metrics be reproduced today? | **Not without the raw CSV.** The *code path* was re-executed unchanged on two substitute corpora (`scripts/reproduce_original_pipeline.py`): it runs end to end (PhiUSIIL: soft vote test accuracy 0.9970, ROC-AUC 0.9988; corpus B: 0.8484 / 0.9317, degraded by the scheme-less parsing bug in §3). |
 
 Conclusion: at present nothing in `results/` can be independently regenerated from the repository alone. The first blocker for Phase 1.2 is obtaining `raw_data.csv` (or an equivalent documented dataset).
 

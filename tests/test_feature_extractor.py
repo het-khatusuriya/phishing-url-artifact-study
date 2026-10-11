@@ -125,3 +125,13 @@ def test_canonical_features_invariant_to_scheme_and_www():
     assert all(f == feats[0] for f in feats)
     assert list(feats[0].keys()) == LEXICAL_V2_CANON_COLUMNS
     assert canonicalize("a.com/www.b") == "a.com/www.b"
+
+
+def test_original_extractor_scheme_less_bug():
+    """Documents a defect of the ORIGINAL extractor (kept unchanged for fidelity):
+    without a scheme the host is not parsed. Our parser handles both forms."""
+    from src.features.feature_extractor import extract_features
+    f = extract_features("visitcanada.com/")
+    assert f["domain_length"] == 0 and f["tld_type"] == "ip"
+    g = extract_lexical_v2("visitcanada.com/")
+    assert g["host_length"] == len("visitcanada.com") and g["registered_domain_length"] == len("visitcanada")
