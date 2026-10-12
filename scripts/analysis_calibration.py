@@ -45,8 +45,8 @@ def main(run):
                 pc = np.clip(fn(pp), 0, 1)
                 m = classification_metrics(yy, pc, thr)
                 rows.append({"run_id": run, "model": model, "seed": int(seed), "calibration": cname, "eval_set": sname,
-                             "threshold_val_fpr0.01": thr, "ece": m["ece"], "brier": m["brier"], "log_loss": m["log_loss"],
-                             "roc_auc": m["roc_auc"], "recall_at_val_fpr0.01": m["recall"], "fpr_at_val_fpr0.01": m["fpr"]})
+                             "threshold_val_fpr0.01": thr, "ece": m.get("ece"), "brier": m.get("brier"), "log_loss": m.get("log_loss"),
+                             "roc_auc": m.get("roc_auc"), "recall_at_val_fpr0.01": m["recall"], "fpr_at_val_fpr0.01": m["fpr"]})
     out = pd.DataFrame(rows)
     (ROOT / "results/tables").mkdir(parents=True, exist_ok=True)
     out.to_csv(ROOT / "results/tables" / f"calibration_{run}.csv", index=False)

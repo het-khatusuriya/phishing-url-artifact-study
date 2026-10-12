@@ -41,10 +41,18 @@ def main(run, model, seed, n):
     te = rng.choice(split["test"], size=min(n, len(split["test"])), replace=False)
     Xt = prep.transform(X.iloc[te])
     names = list(prep.get_feature_names_out())
-    expl = shap.TreeExplainer(est)
-    sv = expl.shap_values(Xt)
-    if isinstance(sv, list):
-        sv = sv[1]
+    if model in ("xgb",):
+        # XGBoost's built-in TreeSHAP (exact, same algorithm as shap.TreeExplainer); avoids the
+        # shap 0.49 / xgboost 3.x base_score parsing incompatibility. Last column = bias term.
+        import xgboost as xgb
+        sv = est.get_booster().predict(xgb.DMatrix(Xt), pred_contribs=True)[:, :-1]
+    else:
+        expl = shap.TreeExplainer(est)
+        sv = expl.shap_values(Xt)
+        if isinstance(sv, list):
+            sv = sv[1]
+        elif getattr(sv, "ndim", 2) == 3:
+            sv = sv[:, :, 1]
     imp = pd.DataFrame({"feature": names, "mean_abs_shap": np.abs(sv).mean(0),
                         "mean_shap": sv.mean(0)}).sort_values("mean_abs_shap", ascending=False)
     (ROOT / "results/tables").mkdir(parents=True, exist_ok=True)

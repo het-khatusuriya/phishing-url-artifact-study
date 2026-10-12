@@ -26,3 +26,10 @@
 - Completed: `A_b28_grouped` (5 seeds), `LOCO_lineage253k_v2`, `LOCO_lineage253k_v2noart`; first seed of `A_b28noart_grouped`.
 - Manuscript: provisional abstract, results (§6.1–6.5), discussion, limitations and conclusion written from completed runs only; pending items listed in §6.6.
 - Word paper: `paper/Malicious_URL_Detection_Research_Paper.docx` (+ PDF, 68 pages) built by `scripts/build_word_paper.py`: title page, contents, all manuscript sections with 23 figures and captioned tables, 111 numbered IEEE-style references, and appendices A–J (literature survey table, literature review, research gaps, repository audit, dataset audit, protocol, complete result tables, additional figures incl. the original project's outputs, decision log, reproducibility guide). Rebuild after more runs complete.
+
+## 2026-10-12 (afternoon)
+
+- Single conference paper: `paper/conference_paper.md` → `paper/Phishing_URL_Detection_Conference_Paper.docx` / `.pdf` (22 pages, sections I–XI, 8 figures, 13 tables, 80 references), built by `scripts/build_conference_paper.py`; no appendices. Literature review rewritten as prose plus a hand-curated 28-study comparison table (`research/survey_curated.csv`). Earlier 68-page draft moved to `paper/archive/`.
+- New analyses: XGBoost TreeSHAP (built-in, because SHAP 0.49 cannot parse XGBoost 3.x models), label-preserving mutations, calibration (fixed for positive-only feeds), error analysis, temporal recall, paired bootstrap + McNemar, cost; figures `mutation_flip_rates`, `loco_summary`.
+- Key new results: slash on empty path flips 100 % of benign decisions of the corpus-A XGBoost model (pooled-corpus model ≤ 15 %); soft vote vs XGBoost ΔROC-AUC +0.0001 [−0.0000, 0.0002], McNemar p = 0.21; calibration leaves external FPR at 0.99–1.00; H3 not supported for 2021–2026.
+- Scope reported in the paper: corpus-A baseline runs and LOCO for PhiUSIIL, corpus B and Hannousse 2021. Character-CNN, canonicalised-feature and remaining LOCO runs are still in the queue and listed as future work in the paper.

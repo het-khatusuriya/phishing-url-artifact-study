@@ -74,6 +74,10 @@ def clean_tex(s):
     return re.sub(r"\s+", " ", s).strip()
 
 
+PARTICLES = {"le", "van", "von", "de", "der", "den", "della", "da", "di", "du", "la", "dos"}
+CORPORATE = re.compile(r"(/|\(|Foundation|abuse\.ch|Spamhaus|OpenPhish|Amazon|Cisco|Kaggle|Internet|Common Crawl)", re.I)
+
+
 def fmt_name(n):
     n = clean_tex(n)
     if "," in n:
@@ -82,51 +86,56 @@ def fmt_name(n):
         toks = n.split()
         if len(toks) == 1:
             return n
-        last, first = toks[-1], " ".join(toks[:-1])
+        k = len(toks) - 1
+        while k > 1 and toks[k - 1].lower() in PARTICLES:
+            k -= 1
+        last, first = " ".join(toks[k:]), " ".join(toks[:k])
     initials = " ".join("-".join(p[0] + "." for p in w.split("-") if p) for w in first.split() if w[0].isalpha())
     return f"{initials} {last}".strip()
 
 
+def fmt_authors(raw):
+    raw = raw or ""
+    if CORPORATE.search(raw):
+        return clean_tex(raw)
+    names = [fmt_name(a) for a in re.split(r"\s+and\s+", raw) if a.strip()]
+    if len(names) > 6:
+        return names[0] + " et al."
+    if len(names) == 2:
+        return f"{names[0]} and {names[1]}"
+    if len(names) > 2:
+        return ", ".join(names[:-1]) + ", and " + names[-1]
+    return names[0] if names else ""
+
+
 def fmt_reference(e):
-    authors_raw = e.get("author", "")
-    if authors_raw.strip().startswith("{") or " and " not in authors_raw and "," not in authors_raw and len(authors_raw.split()) > 4:
-        authors = clean_tex(authors_raw)
-    else:
-        names = [fmt_name(a) for a in re.split(r"\s+and\s+", authors_raw) if a.strip()]
-        if len(names) > 6:
-            authors = names[0] + " et al."
-        elif len(names) > 1:
-            authors = ", ".join(names[:-1]) + ", and " + names[-1]
-        else:
-            authors = names[0] if names else ""
+    authors = fmt_authors(e.get("author", ""))
     title = clean_tex(e.get("title", ""))
     venue = clean_tex(e.get("journal") or e.get("booktitle") or e.get("howpublished") or e.get("publisher") or "")
-    parts = [f"{authors}," if authors else "", f"“{title},”"]
+    if venue.lower().startswith("http"):
+        venue = ""
     tail = []
     if e.get("journal"):
         tail.append(venue)
-        if e.get("volume"):
-            tail.append(f"vol. {clean_tex(e['volume'])}")
-        if e.get("number"):
-            tail.append(f"no. {clean_tex(e['number'])}")
-        if e.get("pages"):
-            tail.append(f"pp. {clean_tex(e['pages'])}")
+        for f, lab in (("volume", "vol."), ("number", "no."), ("pages", "pp.")):
+            if e.get(f) and lab not in venue:
+                tail.append(f"{lab} {clean_tex(e[f])}")
     elif e.get("booktitle"):
         tail.append("in " + venue)
-        if e.get("pages"):
+        if e.get("pages") and "pp." not in venue:
             tail.append(f"pp. {clean_tex(e['pages'])}")
     elif venue:
         tail.append(venue)
-    if e.get("eprint") and "arxiv" not in venue.lower():
+    if e.get("eprint") and not e.get("doi") and "arxiv" not in venue.lower():
         tail.append(f"arXiv:{clean_tex(e['eprint'])}")
-    if e.get("year"):
+    if e.get("year") and clean_tex(e["year"]) not in venue:
         tail.append(clean_tex(e["year"]))
-    s = " ".join(p for p in parts if p) + " " + ", ".join(t for t in tail if t)
+    s = (f"{authors}, " if authors else "") + f"“{title},” " + ", ".join(t for t in tail if t)
     if e.get("doi"):
         s += f", doi: {clean_tex(e['doi'])}"
     elif e.get("url"):
         s += f". [Online]. Available: {clean_tex(e['url'])}"
-    return s.rstrip(".") + "."
+    return s.rstrip(". ") + "."
 
 
 # ----------------------------------------------------------------------------- document helpers
@@ -428,7 +437,7 @@ def insert_result_table(spec):
 
 
 # ----------------------------------------------------------------------------- manuscript preprocessing
-ms = (ROOT / "paper/manuscript.md").read_text(encoding="utf-8")
+ms = (ROOT / "paper/archive/manuscript.md").read_text(encoding="utf-8")
 title = re.search(r"^# (.+)$", ms, re.M).group(1)
 abstract = re.search(r"## Abstract\s*\n(.*?)\n\*\*Keywords:\*\*", ms, re.S).group(1).strip()
 abstract = re.sub(r"^\*Provisional[^\n]*\*\s*", "", abstract).strip()
