@@ -48,10 +48,10 @@ Original data are unavailable; the stored numbers are copied from `results/metri
 | phiusiil    | b28        | random  | rf       |       5 | 0.264 ± 0.002         | 0.9984 ± 0.0002 | 0.9962 ± 0.0005 | 0.9956 ± 0.0007 | 0.0094 ± 0.0007 | nan      |
 | phiusiil    | b28        | random  | softvote |       5 | 0.264 ± 0.002         | 0.9989 ± 0.0002 | 0.9964 ± 0.0006 | 0.9957 ± 0.0007 | 0.0098 ± 0.0010 | nan      |
 | phiusiil    | b28        | random  | xgb      |       5 | 0.264 ± 0.002         | 0.9987 ± 0.0003 | 0.9964 ± 0.0006 | 0.9955 ± 0.0008 | 0.0098 ± 0.0012 | nan      |
-| phiusiil    | b28        | grouped | lr       |       3 | 0.000 ± 0.000         | 0.9982 ± 0.0003 | 0.9924 ± 0.0028 | 0.9911 ± 0.0026 | 0.0107 ± 0.0004 | nan      |
-| phiusiil    | b28        | grouped | rf       |       3 | 0.000 ± 0.000         | 0.9981 ± 0.0003 | 0.9934 ± 0.0035 | 0.9934 ± 0.0024 | 0.0100 ± 0.0011 | nan      |
-| phiusiil    | b28        | grouped | softvote |       3 | 0.000 ± 0.000         | 0.9987 ± 0.0002 | 0.9939 ± 0.0033 | 0.9944 ± 0.0016 | 0.0099 ± 0.0017 | nan      |
-| phiusiil    | b28        | grouped | xgb      |       3 | 0.000 ± 0.000         | 0.9986 ± 0.0003 | 0.9940 ± 0.0032 | 0.9943 ± 0.0013 | 0.0091 ± 0.0012 | nan      |
+| phiusiil    | b28        | grouped | lr       |       5 | 0.000 ± 0.000         | 0.9981 ± 0.0004 | 0.9930 ± 0.0025 | 0.9915 ± 0.0022 | 0.0099 ± 0.0011 | nan      |
+| phiusiil    | b28        | grouped | rf       |       5 | 0.000 ± 0.000         | 0.9982 ± 0.0003 | 0.9943 ± 0.0029 | 0.9940 ± 0.0021 | 0.0089 ± 0.0018 | nan      |
+| phiusiil    | b28        | grouped | softvote |       5 | 0.000 ± 0.000         | 0.9987 ± 0.0002 | 0.9947 ± 0.0027 | 0.9947 ± 0.0015 | 0.0086 ± 0.0021 | nan      |
+| phiusiil    | b28        | grouped | xgb      |       5 | 0.000 ± 0.000         | 0.9986 ± 0.0003 | 0.9947 ± 0.0026 | 0.9945 ± 0.0013 | 0.0091 ± 0.0012 | nan      |
 | phiusiil    | v2         | random  | —        |     nan | nan                   | nan             | nan             | nan             | nan             | pending  |
 | phiusiil    | v2         | grouped | —        |     nan | nan                   | nan             | nan             | nan             | nan             | pending  |
 | lineage253k | b28        | random  | —        |     nan | nan                   | nan             | nan             | nan             | nan             | pending  |
@@ -63,65 +63,70 @@ Original data are unavailable; the stored numbers are copied from `results/metri
 
 FPR = share of the external corpus' benign URLs flagged. PhishTank is positive-only (recall).
 
-| run                | model    | in-dist AUC   | hannousse2021 AUC   | hannousse2021 FPR   | ebbu2017 AUC   | ebbu2017 FPR   | phishstorm AUC   | phishstorm FPR   | iscx2016 AUC   | iscx2016 FPR   | lineage253k AUC   | lineage253k FPR   | phishtank recall   | status   |
-|:-------------------|:---------|:--------------|:--------------------|:--------------------|:---------------|:---------------|:-----------------|:-----------------|:---------------|:---------------|:------------------|:------------------|:-------------------|:---------|
-| A_b28_grouped      | lr       | 0.998 ± 0.000 | 0.680 ± 0.013       | 0.994 ± 0.000       | 0.709 ± 0.020  | 1.000 ± 0.000  | 0.694 ± 0.025    | 1.000 ± 0.000    | 0.425 ± 0.032  | 1.000 ± 0.000  | 0.552 ± 0.001     | 0.743 ± 0.001     | 0.992 ± 0.001      | nan      |
-| A_b28_grouped      | rf       | 0.998 ± 0.000 | 0.560 ± 0.002       | 0.994 ± 0.000       | 0.559 ± 0.007  | 1.000 ± 0.000  | 0.623 ± 0.006    | 1.000 ± 0.000    | 0.480 ± 0.011  | 1.000 ± 0.000  | 0.417 ± 0.003     | 1.000 ± 0.000     | 0.995 ± 0.000      | nan      |
-| A_b28_grouped      | softvote | 0.999 ± 0.000 | 0.669 ± 0.015       | 0.994 ± 0.000       | 0.744 ± 0.028  | 1.000 ± 0.000  | 0.765 ± 0.012    | 1.000 ± 0.000    | 0.401 ± 0.056  | 1.000 ± 0.000  | 0.558 ± 0.007     | 1.000 ± 0.000     | 0.995 ± 0.000      | nan      |
-| A_b28_grouped      | xgb      | 0.999 ± 0.000 | 0.679 ± 0.022       | 0.994 ± 0.000       | 0.757 ± 0.034  | 1.000 ± 0.000  | 0.760 ± 0.024    | 1.000 ± 0.000    | 0.398 ± 0.064  | 1.000 ± 0.000  | 0.512 ± 0.010     | 1.000 ± 0.000     | 0.995 ± 0.000      | nan      |
-| A_b28noart_grouped | nan      | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
-| A_v2_grouped       | nan      | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
-| A_v2noart_grouped  | nan      | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
-| A_v2canon_grouped  | nan      | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
-| A_char_grouped     | nan      | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
-| B_b28_grouped      | nan      | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
-| B_b28noart_grouped | nan      | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
-| B_v2_grouped       | nan      | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
-| B_v2noart_grouped  | nan      | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
-| B_v2canon_grouped  | nan      | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
-| B_char_grouped     | nan      | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
+| run                | model    |   seeds | in-dist AUC   | hannousse2021 AUC   | hannousse2021 FPR   | ebbu2017 AUC   | ebbu2017 FPR   | phishstorm AUC   | phishstorm FPR   | iscx2016 AUC   | iscx2016 FPR   | lineage253k AUC   | lineage253k FPR   | phishtank recall   | status   |
+|:-------------------|:---------|--------:|:--------------|:--------------------|:--------------------|:---------------|:---------------|:-----------------|:-----------------|:---------------|:---------------|:------------------|:------------------|:-------------------|:---------|
+| A_b28_grouped      | lr       |       5 | 0.998 ± 0.000 | 0.688 ± 0.013       | 0.994 ± 0.000       | 0.724 ± 0.025  | 1.000 ± 0.000  | 0.703 ± 0.021    | 1.000 ± 0.000    | 0.421 ± 0.024  | 1.000 ± 0.000  | 0.554 ± 0.004     | 0.743 ± 0.001     | 0.992 ± 0.001      | nan      |
+| A_b28_grouped      | rf       |       5 | 0.998 ± 0.000 | 0.557 ± 0.006       | 0.994 ± 0.000       | 0.555 ± 0.008  | 1.000 ± 0.000  | 0.621 ± 0.005    | 1.000 ± 0.000    | 0.474 ± 0.012  | 1.000 ± 0.000  | 0.410 ± 0.012     | 1.000 ± 0.000     | 0.995 ± 0.000      | nan      |
+| A_b28_grouped      | softvote |       5 | 0.999 ± 0.000 | 0.667 ± 0.011       | 0.994 ± 0.000       | 0.738 ± 0.021  | 1.000 ± 0.000  | 0.758 ± 0.013    | 1.000 ± 0.000    | 0.425 ± 0.071  | 1.000 ± 0.000  | 0.553 ± 0.011     | 1.000 ± 0.000     | 0.995 ± 0.000      | nan      |
+| A_b28_grouped      | xgb      |       5 | 0.999 ± 0.000 | 0.679 ± 0.016       | 0.994 ± 0.000       | 0.753 ± 0.025  | 1.000 ± 0.000  | 0.752 ± 0.020    | 1.000 ± 0.000    | 0.429 ± 0.079  | 1.000 ± 0.000  | 0.493 ± 0.027     | 1.000 ± 0.000     | 0.995 ± 0.000      | nan      |
+| A_b28noart_grouped | lr       |       1 | 0.987         | 0.662               | 0.943               | 0.648          | 0.997          | 0.578            | 1.000            | 0.504          | 0.994          | 0.525             | 0.472             | 0.983              | nan      |
+| A_b28noart_grouped | rf       |       1 | 0.997         | 0.549               | 0.983               | 0.534          | 1.000          | 0.640            | 1.000            | 0.510          | 1.000          | 0.406             | 1.000             | 0.992              | nan      |
+| A_b28noart_grouped | softvote |       1 | 0.999         | 0.637               | 0.993               | 0.553          | 1.000          | 0.713            | 1.000            | 0.185          | 1.000          | 0.421             | 0.865             | 0.995              | nan      |
+| A_b28noart_grouped | xgb      |       1 | 0.999         | 0.632               | 0.994               | 0.520          | 1.000          | 0.664            | 1.000            | 0.097          | 1.000          | 0.416             | 0.781             | 0.995              | nan      |
+| A_v2_grouped       | nan      |     nan | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
+| A_v2noart_grouped  | nan      |     nan | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
+| A_v2canon_grouped  | nan      |     nan | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
+| A_char_grouped     | nan      |     nan | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
+| B_b28_grouped      | nan      |     nan | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
+| B_b28noart_grouped | nan      |     nan | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
+| B_v2_grouped       | nan      |     nan | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
+| B_v2noart_grouped  | nan      |     nan | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
+| B_v2canon_grouped  | nan      |     nan | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
+| B_char_grouped     | nan      |     nan | nan           | nan                 | nan                 | nan            | nan            | nan              | nan              | nan            | nan            | nan               | nan               | nan                | pending  |
 
 ## T5. Leave-one-corpus-out: train on the other five corpora, test on the held-out corpus
 
 
 
-| held_out      | representation   | model   | pool test AUC   | held-out AUC   | held-out F1@0.5   | held-out recall@valFPR1%   | held-out FPR@valFPR1%   | status   |
-|:--------------|:-----------------|:--------|:----------------|:---------------|:------------------|:---------------------------|:------------------------|:---------|
-| phiusiil      | v2               | lr      | 0.921 ± 0.012   | 0.966 ± 0.006  | 0.750 ± 0.015     | 0.147 ± 0.122              | 0.000 ± 0.000           | nan      |
-| phiusiil      | v2               | rf      | 0.960 ± 0.001   | 0.891 ± 0.027  | 0.762 ± 0.009     | 0.251 ± 0.054              | 0.000 ± 0.000           | nan      |
-| phiusiil      | v2               | xgb     | 0.968 ± 0.002   | 0.977 ± 0.017  | 0.784 ± 0.004     | 0.422 ± 0.047              | 0.000 ± 0.000           | nan      |
-| phiusiil      | v2noart          | lr      | 0.917 ± 0.016   | 0.888 ± 0.007  | 0.766 ± 0.007     | 0.321 ± 0.031              | 0.000 ± 0.000           | nan      |
-| phiusiil      | v2noart          | rf      | 0.958 ± 0.001   | 0.866 ± 0.013  | 0.784 ± 0.010     | 0.321 ± 0.052              | 0.000 ± 0.000           | nan      |
-| phiusiil      | v2noart          | xgb     | 0.965 ± 0.003   | 0.878 ± 0.013  | 0.800 ± 0.001     | 0.424 ± 0.084              | 0.000 ± 0.000           | nan      |
-| phiusiil      | v2canon          | nan     | nan             | nan            | nan               | nan                        | nan                     | pending  |
-| lineage253k   | v2               | lr      | 0.905           | 0.869          | 0.665             | 0.996                      | 0.907                   | nan      |
-| lineage253k   | v2               | rf      | 0.960           | 0.769          | 0.756             | 0.400                      | 0.167                   | nan      |
-| lineage253k   | v2               | xgb     | 0.973           | 0.878          | 0.768             | 0.656                      | 0.074                   | nan      |
-| lineage253k   | v2noart          | nan     | nan             | nan            | nan               | nan                        | nan                     | pending  |
-| lineage253k   | v2canon          | nan     | nan             | nan            | nan               | nan                        | nan                     | pending  |
-| hannousse2021 | v2               | nan     | nan             | nan            | nan               | nan                        | nan                     | pending  |
-| hannousse2021 | v2noart          | nan     | nan             | nan            | nan               | nan                        | nan                     | pending  |
-| hannousse2021 | v2canon          | nan     | nan             | nan            | nan               | nan                        | nan                     | pending  |
-| ebbu2017      | v2               | nan     | nan             | nan            | nan               | nan                        | nan                     | pending  |
-| ebbu2017      | v2noart          | nan     | nan             | nan            | nan               | nan                        | nan                     | pending  |
-| ebbu2017      | v2canon          | nan     | nan             | nan            | nan               | nan                        | nan                     | pending  |
-| phishstorm    | v2               | nan     | nan             | nan            | nan               | nan                        | nan                     | pending  |
-| phishstorm    | v2noart          | nan     | nan             | nan            | nan               | nan                        | nan                     | pending  |
-| phishstorm    | v2canon          | nan     | nan             | nan            | nan               | nan                        | nan                     | pending  |
-| iscx2016      | v2               | nan     | nan             | nan            | nan               | nan                        | nan                     | pending  |
-| iscx2016      | v2noart          | nan     | nan             | nan            | nan               | nan                        | nan                     | pending  |
-| iscx2016      | v2canon          | nan     | nan             | nan            | nan               | nan                        | nan                     | pending  |
+| held_out      | representation   | model   |   seeds | pool test AUC   | held-out AUC   | held-out F1@0.5   | held-out recall@valFPR1%   | held-out FPR@valFPR1%   | status   |
+|:--------------|:-----------------|:--------|--------:|:----------------|:---------------|:------------------|:---------------------------|:------------------------|:---------|
+| phiusiil      | v2               | lr      |       3 | 0.921 ± 0.012   | 0.966 ± 0.006  | 0.750 ± 0.015     | 0.147 ± 0.122              | 0.000 ± 0.000           | nan      |
+| phiusiil      | v2               | rf      |       3 | 0.960 ± 0.001   | 0.891 ± 0.027  | 0.762 ± 0.009     | 0.251 ± 0.054              | 0.000 ± 0.000           | nan      |
+| phiusiil      | v2               | xgb     |       3 | 0.968 ± 0.002   | 0.977 ± 0.017  | 0.784 ± 0.004     | 0.422 ± 0.047              | 0.000 ± 0.000           | nan      |
+| phiusiil      | v2noart          | lr      |       3 | 0.917 ± 0.016   | 0.888 ± 0.007  | 0.766 ± 0.007     | 0.321 ± 0.031              | 0.000 ± 0.000           | nan      |
+| phiusiil      | v2noart          | rf      |       3 | 0.958 ± 0.001   | 0.866 ± 0.013  | 0.784 ± 0.010     | 0.321 ± 0.052              | 0.000 ± 0.000           | nan      |
+| phiusiil      | v2noart          | xgb     |       3 | 0.965 ± 0.003   | 0.878 ± 0.013  | 0.800 ± 0.001     | 0.424 ± 0.084              | 0.000 ± 0.000           | nan      |
+| phiusiil      | v2canon          | nan     |     nan | nan             | nan            | nan               | nan                        | nan                     | pending  |
+| lineage253k   | v2               | lr      |       3 | 0.934 ± 0.025   | 0.865 ± 0.004  | 0.660 ± 0.004     | 0.997 ± 0.001              | 0.946 ± 0.034           | nan      |
+| lineage253k   | v2               | rf      |       3 | 0.973 ± 0.012   | 0.772 ± 0.003  | 0.755 ± 0.001     | 0.421 ± 0.060              | 0.176 ± 0.021           | nan      |
+| lineage253k   | v2               | xgb     |       3 | 0.980 ± 0.007   | 0.874 ± 0.004  | 0.769 ± 0.003     | 0.709 ± 0.058              | 0.160 ± 0.091           | nan      |
+| lineage253k   | v2noart          | lr      |       3 | 0.936 ± 0.009   | 0.883 ± 0.003  | 0.710 ± 0.023     | 0.723 ± 0.126              | 0.152 ± 0.113           | nan      |
+| lineage253k   | v2noart          | rf      |       3 | 0.970 ± 0.013   | 0.780 ± 0.009  | 0.761 ± 0.003     | 0.377 ± 0.035              | 0.149 ± 0.022           | nan      |
+| lineage253k   | v2noart          | xgb     |       3 | 0.972 ± 0.010   | 0.849 ± 0.005  | 0.779 ± 0.005     | 0.694 ± 0.050              | 0.188 ± 0.027           | nan      |
+| lineage253k   | v2canon          | nan     |     nan | nan             | nan            | nan               | nan                        | nan                     | pending  |
+| hannousse2021 | v2               | nan     |     nan | nan             | nan            | nan               | nan                        | nan                     | pending  |
+| hannousse2021 | v2noart          | nan     |     nan | nan             | nan            | nan               | nan                        | nan                     | pending  |
+| hannousse2021 | v2canon          | nan     |     nan | nan             | nan            | nan               | nan                        | nan                     | pending  |
+| ebbu2017      | v2               | nan     |     nan | nan             | nan            | nan               | nan                        | nan                     | pending  |
+| ebbu2017      | v2noart          | nan     |     nan | nan             | nan            | nan               | nan                        | nan                     | pending  |
+| ebbu2017      | v2canon          | nan     |     nan | nan             | nan            | nan               | nan                        | nan                     | pending  |
+| phishstorm    | v2               | nan     |     nan | nan             | nan            | nan               | nan                        | nan                     | pending  |
+| phishstorm    | v2noart          | nan     |     nan | nan             | nan            | nan               | nan                        | nan                     | pending  |
+| phishstorm    | v2canon          | nan     |     nan | nan             | nan            | nan               | nan                        | nan                     | pending  |
+| iscx2016      | v2               | nan     |     nan | nan             | nan            | nan               | nan                        | nan                     | pending  |
+| iscx2016      | v2noart          | nan     |     nan | nan             | nan            | nan               | nan                        | nan                     | pending  |
+| iscx2016      | v2canon          | nan     |     nan | nan             | nan            | nan               | nan                        | nan                     | pending  |
 
 ## T9. Computational cost (test machine: Intel i7-1355U, CPU only)
 
 Latency = batch prediction time on the test split divided by its size (includes no feature extraction).
 
-| run_id        | model    |      fit_s |   latency_ms |   size_mb |   n_features |
-|:--------------|:---------|-----------:|-------------:|----------:|-------------:|
-| A_b28_grouped | lr       |     2.0487 |       0.005  |    0.0156 |           28 |
-| A_b28_grouped | rf       |    34.4146 |       0.0223 |   57.2474 |           28 |
-| A_b28_grouped | softvote | 12627.7    |       0.033  |   57.613  |           28 |
-| A_b28_grouped | xgb      |    14.998  |       0.0082 |    0.3644 |           28 |
+| run_id        | model    |     fit_s |   latency_ms |   size_mb |   n_features |
+|:--------------|:---------|----------:|-------------:|----------:|-------------:|
+| A_b28_grouped | lr       |    2.1296 |       0.0042 |    0.0156 |           28 |
+| A_b28_grouped | rf       |   34.8751 |       0.0252 |   58.7252 |           28 |
+| A_b28_grouped | softvote | 7603.07   |       0.0342 |   59.0914 |           28 |
+| A_b28_grouped | xgb      |   12.7386 |       0.0092 |    0.3649 |           28 |
 
 ## T10. Dataset-identification probe (6-way, grouped 5-fold CV, logistic regression)
 

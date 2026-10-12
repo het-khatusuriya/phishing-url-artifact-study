@@ -97,8 +97,8 @@ for tag in ("A", "B"):
         if m is None:
             rows.append({"run": run, "status": "pending"}); continue
         for model in sorted(m.model.unique()):
-            r = {"run": run, "model": model}
             mm = m[m.model == model]
+            r = {"run": run, "model": model, "seeds": int(mm.seed.nunique())}
             r["in-dist AUC"] = ms(mm[(mm.eval_set == "test") & (mm.policy == "t0.5")].roc_auc)
             for e in EXT_LABELLED:
                 g = mm[(mm.eval_set == f"external:{e}") & (mm.policy == "val_fpr0.01")]
@@ -122,7 +122,7 @@ for held in ["phiusiil", "lineage253k", "hannousse2021", "ebbu2017", "phishstorm
             gi = mm[(mm.eval_set == "test") & (mm.policy == "t0.5")]
             ge = mm[(mm.eval_set == f"external:{held}") & (mm.policy == "val_fpr0.01")]
             g5 = mm[(mm.eval_set == f"external:{held}") & (mm.policy == "t0.5")]
-            rows.append({"held_out": held, "representation": rep, "model": model, "pool test AUC": ms(gi.roc_auc),
+            rows.append({"held_out": held, "representation": rep, "model": model, "seeds": int(mm.seed.nunique()), "pool test AUC": ms(gi.roc_auc),
                          "held-out AUC": ms(ge.roc_auc), "held-out F1@0.5": ms(g5.f1), "held-out recall@valFPR1%": ms(ge.recall),
                          "held-out FPR@valFPR1%": ms(ge.fpr)})
 emit("T5", "Leave-one-corpus-out: train on the other five corpora, test on the held-out corpus", pd.DataFrame(rows))

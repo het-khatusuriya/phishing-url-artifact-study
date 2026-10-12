@@ -83,6 +83,9 @@ python scripts/analysis_mutations.py --run A_v2_grouped --models xgb lr
 python scripts/analysis_shap.py --run A_v2_grouped --model xgb
 python scripts/analysis_errors.py --run A_v2canon_grouped --model xgb
 python scripts/make_paper_tables.py                      # tables used in paper/manuscript.md
+python scripts/make_architecture_figure.py               # pipeline figure
+python scripts/build_word_paper.py                       # -> paper/Malicious_URL_Detection_Research_Paper.docx
+powershell -File scripts/word_finalize.ps1 -Docx paper/Malicious_URL_Detection_Research_Paper.docx   # update TOC, export PDF (needs MS Word)
 ```
 
 Every figure and table is generated from files under `results/runs/`; nothing is edited by hand.

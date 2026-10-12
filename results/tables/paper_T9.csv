@@ -1,5 +1,5 @@
 run_id,model,fit_s,latency_ms,size_mb,n_features
-A_b28_grouped,lr,2.0487,0.005,0.0156,28
-A_b28_grouped,rf,34.4146,0.0223,57.2474,28
-A_b28_grouped,softvote,12627.7087,0.033,57.613,28
-A_b28_grouped,xgb,14.998,0.0082,0.3644,28
+A_b28_grouped,lr,2.1296,0.0042,0.0156,28
+A_b28_grouped,rf,34.8751,0.0252,58.7252,28
+A_b28_grouped,softvote,7603.071,0.0342,59.0914,28
+A_b28_grouped,xgb,12.7386,0.0092,0.3649,28

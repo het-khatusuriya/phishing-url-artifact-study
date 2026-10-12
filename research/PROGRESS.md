@@ -19,3 +19,10 @@
 - Original pipeline code re-executed unchanged on both substitute corpora (`results/reproduction/`). Found a defect: the original extractor does not parse hosts of scheme-less URLs (audit §3; regression test added).
 - Experiment queues running: main matrix (14 runs), LOCO (12 runs); canonical queue (8 runs) starts when LOCO ends.
 - PDF incident: while removing licence-restricted PDFs from the unpushed branch history, `git filter-branch` deleted `research/papers/` from disk; 36 PDFs restored from download caches, all 44 others re-downloaded from the same legal sources and verified. PDFs are now git-ignored.
+
+## 2026-10-12
+
+- Overnight the laptop entered Modern Standby (00:56–09:56, battery-drain policy); runs resumed on wake. Timing values that span the standby (one soft-vote fit in `A_b28_grouped`, one feature extraction in `LOCO_lineage253k_v2`) are excluded from cost reporting. Added `scripts/keep_awake.py` (prevents idle sleep only; keep the laptop plugged in with the lid open).
+- Completed: `A_b28_grouped` (5 seeds), `LOCO_lineage253k_v2`, `LOCO_lineage253k_v2noart`; first seed of `A_b28noart_grouped`.
+- Manuscript: provisional abstract, results (§6.1–6.5), discussion, limitations and conclusion written from completed runs only; pending items listed in §6.6.
+- Word paper: `paper/Malicious_URL_Detection_Research_Paper.docx` (+ PDF, 68 pages) built by `scripts/build_word_paper.py`: title page, contents, all manuscript sections with 23 figures and captioned tables, 111 numbered IEEE-style references, and appendices A–J (literature survey table, literature review, research gaps, repository audit, dataset audit, protocol, complete result tables, additional figures incl. the original project's outputs, decision log, reproducibility guide). Rebuild after more runs complete.

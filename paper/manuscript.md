@@ -6,7 +6,7 @@
 
 *Provisional — based on the completed runs listed in §6; to be finalised when the experiment matrix completes.*
 
-Lexical URL classifiers are routinely reported with 95–99 % accuracy on public phishing benchmarks, yet they fail when moved to differently collected data. We audit a typical detector (28 lexical features and a weighted soft-voting ensemble of logistic regression, random forest and XGBoost) and six public corpora with raw URLs, plus three live feeds. In one widely used corpus, every benign URL is an `https://www.` homepage; across corpora, the scheme, the `www.` prefix and URL length change in strength and even in direction of association with phishing. A linear probe identifies the source corpus of a benign URL with 83 % accuracy (chance 17 %); dropping artifact columns barely changes this, while canonicalising the URL string lowers it to 62 %. Models trained on PhiUSIIL reach ROC-AUC 0.998–0.999 with or without registered-domain-grouped splitting, yet with a threshold set for a 1 % false-positive budget they flag 99–100 % of benign URLs in four other corpora, and their ROC-AUC falls to 0.34–0.78, below chance on two corpora. Training on five pooled corpora restores ranking on a held-out corpus (ROC-AUC up to 0.977) but leaves validation-chosen thresholds badly miscalibrated. We release a tested, reproducible pipeline and argue that URL detectors should be evaluated across corpora, at fixed false-positive budgets, with recording format canonicalised.
+Lexical URL classifiers are routinely reported with 95–99 % accuracy on public phishing benchmarks, yet they fail when moved to differently collected data. We audit a typical detector (28 lexical features and a weighted soft-voting ensemble of logistic regression, random forest and XGBoost) and six public corpora with raw URLs, plus three live feeds. In one widely used corpus, every benign URL is an `https://www.` homepage; across corpora, the scheme, the `www.` prefix and URL length change in strength and even in direction of association with phishing. A linear probe identifies the source corpus of a benign URL with 83 % accuracy (chance 17 %); dropping artifact columns barely changes this, while canonicalising the URL string lowers it to 62 %. Models trained on PhiUSIIL reach ROC-AUC 0.998–0.999 with or without registered-domain-grouped splitting, yet with a threshold set for a 1 % false-positive budget they flag 99–100 % of benign URLs in four other corpora, and their ROC-AUC falls to 0.34–0.78, below chance on two corpora. Training on five pooled corpora restores ranking on a held-out corpus (ROC-AUC 0.77–0.98) but leaves validation-chosen thresholds badly miscalibrated, under-flagging one unseen corpus and over-flagging another. We release a tested, reproducible pipeline and argue that URL detectors should be evaluated across corpora, at fixed false-positive budgets, with recording format canonicalised.
 
 **Keywords:** phishing detection; malicious URL detection; lexical features; dataset bias; shortcut learning; cross-dataset generalisation; domain-grouped evaluation; calibration; machine learning for security
 
@@ -128,7 +128,7 @@ Intel Core i7-1355U (10 cores, 12 threads), 16 GB RAM, no GPU; Windows 11; Pytho
 
 ## 6. Results
 
-Status of the evidence on 2026-10-12: complete for §6.1, §6.2 and the baseline-feature runs on corpus A (random split, 5 seeds; grouped split, 3 of 5 seeds); partial for leave-one-corpus-out (1 of 6 held-out corpora); **pending** for corpus B, `lexical_v2` and canonicalised runs, character models, calibration, SHAP, mutation and error analyses. Pending items are listed explicitly and no number is extrapolated.
+Status of the evidence on 2026-10-12: complete for §6.1, §6.2 and the baseline-feature runs on corpus A (random split, 5 seeds; grouped split, 5 seeds); partial for leave-one-corpus-out (2 of 6 held-out corpora); **pending** for corpus B, `lexical_v2` and canonicalised runs, character models, calibration, SHAP, mutation and error analyses. Pending items are listed explicitly and no number is extrapolated.
 
 ### 6.1 Baseline reproduction
 
@@ -148,34 +148,40 @@ The dataset-identification probe (Table T10) shows that these differences are le
 
 Random splitting leaks domains asymmetrically. With seed 42, 59.4 % of phishing test URLs share a registered domain with a training URL, against 2.4 % of benign test URLs (26.7 % overall; seed 43: 58.7 % and 2.3 %). Grouped splitting removes the overlap by construction (Table T3; `split_domain_overlap.png`).
 
-Despite this leakage, grouping hardly changes in-distribution performance on PhiUSIIL with the baseline features (5 random-split seeds; 3 of 5 grouped-split seeds so far):
+Despite this leakage, grouping hardly changes in-distribution performance on PhiUSIIL with the baseline features (5 seeds each):
 
 | Model | ROC-AUC random | ROC-AUC grouped | F1@0.5 random | F1@0.5 grouped |
 |---|---|---|---|---|
-| Logistic regression | 0.998 ± 0.000 | 0.998 ± 0.000 | 0.995 ± 0.001 | 0.992 ± 0.003 |
-| Random forest | 0.998 ± 0.000 | 0.998 ± 0.000 | 0.996 ± 0.001 | 0.993 ± 0.003 |
-| XGBoost | 0.999 ± 0.000 | 0.999 ± 0.000 | 0.996 ± 0.001 | 0.994 ± 0.003 |
-| Soft vote 1:2:2 | 0.999 ± 0.000 | 0.999 ± 0.000 | 0.996 ± 0.001 | 0.994 ± 0.003 |
+| Logistic regression | 0.998 ± 0.000 | 0.998 ± 0.000 | 0.995 ± 0.001 | 0.993 ± 0.003 |
+| Random forest | 0.998 ± 0.000 | 0.998 ± 0.000 | 0.996 ± 0.001 | 0.994 ± 0.003 |
+| XGBoost | 0.999 ± 0.000 | 0.999 ± 0.000 | 0.996 ± 0.001 | 0.995 ± 0.003 |
+| Soft vote 1:2:2 | 0.999 ± 0.000 | 0.999 ± 0.000 | 0.996 ± 0.001 | 0.995 ± 0.003 |
 
 H1b is **not supported on corpus A**. The models do not need memorised domains because the recording artifacts already separate the classes. Whether grouping matters on corpora with many URLs per domain (corpus B; ISCX-2016 within LOCO) is **pending**.
 
 ### 6.4 External corpora: near-total false-positive rates (RQ2, H1a, H2)
 
-Models trained on corpus A were applied unchanged to every other corpus, using the threshold chosen on corpus-A validation data for a 1 % false-positive budget (Figure 2, `external_roc_auc_A_b28_grouped.png`; Table T4). In-distribution the threshold holds: realised test FPR is 0.009–0.011 at recall 0.991–0.994.
+Models trained on corpus A were applied unchanged to every other corpus, using the threshold chosen on corpus-A validation data for a 1 % false-positive budget (Figure 2, `external_roc_auc_A_b28_grouped.png`; Table T4). In-distribution the threshold holds: realised test FPR is 0.009–0.010 at recall 0.992–0.995.
 
-On external corpora it fails for every model. **99.4–100 % of the benign URLs of Hannousse 2021, Ebbu2017, PhishStorm and ISCX-2016 are flagged.** On corpus B, logistic regression flags 74 % and every tree model and the soft vote flag 100 %. Ranking quality collapses as well. External ROC-AUC is 0.56–0.77 on Hannousse, Ebbu2017 and PhishStorm and falls **below chance** on ISCX-2016 (0.40–0.48) and the Kaggle corpus (0.34–0.48), the two corpora where `www.` marks phishing rather than benign URLs (§6.2).
+On external corpora it fails for every model. **99.4–100 % of the benign URLs of Hannousse 2021, Ebbu2017, PhishStorm and ISCX-2016 are flagged.** On corpus B, logistic regression flags 74 % and every tree model and the soft vote flag 100 %. Ranking quality collapses as well. External ROC-AUC is 0.56–0.76 on Hannousse, Ebbu2017 and PhishStorm and falls **below chance** on ISCX-2016 (0.42–0.47) and the Kaggle corpus (0.35–0.48), the two corpora where `www.` marks phishing rather than benign URLs (§6.2).
 
 The in-distribution model ranking (all ≥ 0.998) bears no relation to the external ranking. Random forest, which ties for best in-distribution, has the lowest external AUC on Hannousse, Ebbu2017 and PhishStorm (0.56–0.62).
 
 Recall on the positive-only feeds is 0.99–1.00 (PhishTank 0.992–0.996, OpenPhish 1.000, URLhaus malware URLs 1.000). This is not evidence of good detection: a detector that flags every URL not shaped like an `https://www.` homepage has near-perfect recall and near-total FPR. At an operational prevalence of 1 % malicious URLs, recall 0.995 with FPR 0.994 gives a precision of about 1 %, no better than flagging at random.
 
-The random-split runs give the same picture (FPR 0.994–1.000 on the four independent labelled corpora, 0.74–1.00 on corpus B; external AUC 0.34–0.78; Table T4). H2 is supported for the baseline representation. Whether artifact-neutral representations change this (H1a) is **pending** (runs `A_b28noart_grouped`, `A_v2noart_grouped`, `A_v2canon_grouped`).
+The random-split runs give the same picture (FPR 0.994–1.000 on the four independent labelled corpora, 0.74–1.00 on corpus B; external AUC 0.34–0.78; Table T4). H2 is supported for the baseline representation.
+
+*Preliminary (1 of 5 seeds):* removing the two artifact columns of the original features (`https_usage`, `num_subdomains`) barely changes in-distribution ROC-AUC (XGBoost 0.999, soft vote 0.999, random forest 0.997, logistic regression 0.987) and does not repair external behaviour: 94–100 % of the benign URLs of Hannousse 2021, Ebbu2017, PhishStorm and ISCX-2016 are still flagged, and XGBoost's ROC-AUC on ISCX-2016 falls further, to 0.10. This is consistent with the probe (§6.2): the shortcut survives column removal because the remaining length and path features still encode the homepage-only benign class. The remaining seeds, `lexical_v2` and the canonicalised representation are **pending** (runs `A_b28noart_grouped`, `A_v2noart_grouped`, `A_v2canon_grouped`).
 
 ### 6.5 Leave-one-corpus-out: training on diverse corpora (RQ3)
 
-So far one held-out corpus has been evaluated: PhiUSIIL, with 3 seeds, using models trained on a pool of the other five corpora with grouped train/validation/test splits. Training on diverse data changes the failure mode. Ranking transfers well to the held-out corpus: with `lexical_v2`, ROC-AUC is 0.977 (XGBoost), 0.966 (LR) and 0.891 (RF), and FPR at the validation-chosen 1 % threshold is 0.000. Recall at that threshold, however, falls to 0.42 (XGBoost), 0.25 (RF) and 0.15 (LR) on PhiUSIIL phishing, and to 0.16–0.44 on PhishTank. The held-out corpus's score distribution has shifted, so a threshold that is right for the pool is far too conservative for the new corpus.
+So far two held-out corpora have been evaluated. With PhiUSIIL held out (3 seeds), using models trained on a pool of the other five corpora with grouped train/validation/test splits. Training on diverse data changes the failure mode. Ranking transfers well to the held-out corpus: with `lexical_v2`, ROC-AUC is 0.977 (XGBoost), 0.966 (LR) and 0.891 (RF), and FPR at the validation-chosen 1 % threshold is 0.000. Recall at that threshold, however, falls to 0.42 (XGBoost), 0.25 (RF) and 0.15 (LR) on PhiUSIIL phishing, and to 0.16–0.44 on PhishTank. The held-out corpus's score distribution has shifted, so a threshold that is right for the pool is far too conservative for the new corpus.
 
-Removing the five artifact columns *lowers* held-out ROC-AUC (XGBoost 0.977 → 0.878; LR 0.966 → 0.888; RF 0.891 → 0.866), while recall at the validation threshold stays similar (0.32–0.42). In this direction the artifact columns carried information that transferred, so artifact removal is not uniformly beneficial. The other five held-out corpora and the canonicalised representation are **pending**.
+Removing the five artifact columns *lowers* held-out ROC-AUC (XGBoost 0.977 → 0.878; LR 0.966 → 0.888; RF 0.891 → 0.866), while recall at the validation threshold stays similar (0.32–0.42). In this direction the artifact columns carried information that transferred, so artifact removal is not uniformly beneficial.
+
+With corpus B held out (`lexical_v2`, 3 seeds), ranking transfers less well: held-out ROC-AUC is 0.874 ± 0.004 (XGBoost), 0.865 ± 0.004 (LR) and 0.772 ± 0.003 (RF), against 0.934–0.980 on the pool's own test split. Here the validation threshold errs in the *opposite* direction from the PhiUSIIL case: at the threshold chosen for a 1 % false-positive budget, the models flag 16.0 % (XGBoost), 17.6 % (RF) and 94.6 % (LR) of corpus-B benign URLs, at recall 0.71, 0.42 and 1.00. The same recipe thus under-flags one unseen corpus and over-flags another.
+
+Removing the five artifact columns (3 seeds) changes held-out ROC-AUC on corpus B only slightly (XGBoost 0.874 → 0.849; LR 0.865 → 0.883; RF 0.772 → 0.780) but removes logistic regression's over-flagging: its FPR at the validation threshold falls from 0.946 ± 0.034 to 0.152 ± 0.113, with recall 0.72 instead of 1.00. For the tree models FPR stays at 0.15–0.19. Corpus B stores URLs without a scheme, so a linear model that gives weight to the scheme columns shifts all corpus-B scores at once; without those columns the shift disappears. The remaining four held-out corpora and the canonicalised representation are **pending**.
 
 ### 6.6 Pending analyses
 
