@@ -131,7 +131,8 @@ def fig_split_overlap(runs):
 def fig_external(run, metric="roc_auc"):
     m = pd.read_csv(RUNS / run / "metrics.csv")
     m = m[(m.policy == "t0.5")]
-    sets = [s for s in m.eval_set.unique() if s == "test" or s.startswith("external:")]
+    POS_ONLY = {"external:phishtank", "external:urlhaus", "external:openphish"}  # AUC undefined
+    sets = [s for s in m.eval_set.unique() if s == "test" or (s.startswith("external:") and s not in POS_ONLY)]
     if len(sets) < 2:
         return
     g = m[m.eval_set.isin(sets)].groupby(["model", "eval_set"])[metric].agg(["mean", "std"]).reset_index()
@@ -144,8 +145,10 @@ def fig_external(run, metric="roc_auc"):
                color=PALETTE[j % 8], label=s.replace("external:", "ext: "))
     ax.set_xticks(np.arange(len(models)) + w * (len(sets) - 1) / 2)
     ax.set_xticklabels([MODEL_LABEL[x] for x in models], rotation=20, ha="right")
-    ax.set_ylim(0.4, 1.0); ax.set_ylabel(metric.replace("_", " ").upper())
-    ax.set_title(f"In-distribution vs external — {run}", loc="left"); ax.legend(fontsize=7)
+    ax.set_ylim(0.3, 1.0); ax.set_ylabel(metric.replace("_", " ").upper() + " (dotted: chance)")
+    ax.axhline(0.5, color="k", lw=0.6, ls=":")
+    ax.set_title(f"In-distribution vs external — {run}", loc="left")
+    ax.legend(fontsize=7, loc="upper left", bbox_to_anchor=(1.0, 1.0))
     save(fig, f"external_{metric}_{run}")
 
 

@@ -1,0 +1,9 @@
+class,feature_set,drop_artifacts,n,chance,accuracy,phiusiil,lineage253k,hannousse2021,ebbu2017,phishstorm,iscx2016
+benign,baseline28,False,45715,0.167,0.803,1.0,0.999,0.367,0.544,0.841,0.945
+malicious,baseline28,False,45701,0.167,0.577,0.872,0.999,0.18,0.506,0.3,0.489
+benign,lexical_v2,False,45715,0.167,0.83,1.0,1.0,0.402,0.67,0.82,0.967
+malicious,lexical_v2,False,45701,0.167,0.606,0.865,0.999,0.277,0.535,0.385,0.481
+benign,lexical_v2_canon,False,45715,0.167,0.617,0.981,0.184,0.319,0.553,0.703,0.874
+malicious,lexical_v2_canon,False,45701,0.167,0.428,0.748,0.344,0.107,0.505,0.37,0.402
+benign,lexical_v2,True,45715,0.167,0.814,1.0,0.99,0.383,0.661,0.766,0.961
+malicious,lexical_v2,True,45701,0.167,0.578,0.839,0.972,0.179,0.544,0.369,0.45

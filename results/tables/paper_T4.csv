@@ -1,0 +1,16 @@
+run,model,in-dist AUC,hannousse2021 AUC,hannousse2021 FPR,ebbu2017 AUC,ebbu2017 FPR,phishstorm AUC,phishstorm FPR,iscx2016 AUC,iscx2016 FPR,lineage253k AUC,lineage253k FPR,phishtank recall,status
+A_b28_grouped,lr,0.998 ± 0.000,0.680 ± 0.013,0.994 ± 0.000,0.709 ± 0.020,1.000 ± 0.000,0.694 ± 0.025,1.000 ± 0.000,0.425 ± 0.032,1.000 ± 0.000,0.552 ± 0.001,0.743 ± 0.001,0.992 ± 0.001,
+A_b28_grouped,rf,0.998 ± 0.000,0.560 ± 0.002,0.994 ± 0.000,0.559 ± 0.007,1.000 ± 0.000,0.623 ± 0.006,1.000 ± 0.000,0.480 ± 0.011,1.000 ± 0.000,0.417 ± 0.003,1.000 ± 0.000,0.995 ± 0.000,
+A_b28_grouped,softvote,0.999 ± 0.000,0.669 ± 0.015,0.994 ± 0.000,0.744 ± 0.028,1.000 ± 0.000,0.765 ± 0.012,1.000 ± 0.000,0.401 ± 0.056,1.000 ± 0.000,0.558 ± 0.007,1.000 ± 0.000,0.995 ± 0.000,
+A_b28_grouped,xgb,0.999 ± 0.000,0.679 ± 0.022,0.994 ± 0.000,0.757 ± 0.034,1.000 ± 0.000,0.760 ± 0.024,1.000 ± 0.000,0.398 ± 0.064,1.000 ± 0.000,0.512 ± 0.010,1.000 ± 0.000,0.995 ± 0.000,
+A_b28noart_grouped,,,,,,,,,,,,,,pending
+A_v2_grouped,,,,,,,,,,,,,,pending
+A_v2noart_grouped,,,,,,,,,,,,,,pending
+A_v2canon_grouped,,,,,,,,,,,,,,pending
+A_char_grouped,,,,,,,,,,,,,,pending
+B_b28_grouped,,,,,,,,,,,,,,pending
+B_b28noart_grouped,,,,,,,,,,,,,,pending
+B_v2_grouped,,,,,,,,,,,,,,pending
+B_v2noart_grouped,,,,,,,,,,,,,,pending
+B_v2canon_grouped,,,,,,,,,,,,,,pending
+B_char_grouped,,,,,,,,,,,,,,pending

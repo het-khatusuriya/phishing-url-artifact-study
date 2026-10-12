@@ -1,0 +1,15 @@
+corpus,features,split,model,seeds,test_domain_overlap,roc_auc,f1@0.5,tpr@valFPR1%,realised_fpr,status
+phiusiil,b28,random,lr,5.0,0.264 ± 0.002,0.9984 ± 0.0003,0.9946 ± 0.0005,0.9927 ± 0.0009,0.0101 ± 0.0010,
+phiusiil,b28,random,rf,5.0,0.264 ± 0.002,0.9984 ± 0.0002,0.9962 ± 0.0005,0.9956 ± 0.0007,0.0094 ± 0.0007,
+phiusiil,b28,random,softvote,5.0,0.264 ± 0.002,0.9989 ± 0.0002,0.9964 ± 0.0006,0.9957 ± 0.0007,0.0098 ± 0.0010,
+phiusiil,b28,random,xgb,5.0,0.264 ± 0.002,0.9987 ± 0.0003,0.9964 ± 0.0006,0.9955 ± 0.0008,0.0098 ± 0.0012,
+phiusiil,b28,grouped,lr,3.0,0.000 ± 0.000,0.9982 ± 0.0003,0.9924 ± 0.0028,0.9911 ± 0.0026,0.0107 ± 0.0004,
+phiusiil,b28,grouped,rf,3.0,0.000 ± 0.000,0.9981 ± 0.0003,0.9934 ± 0.0035,0.9934 ± 0.0024,0.0100 ± 0.0011,
+phiusiil,b28,grouped,softvote,3.0,0.000 ± 0.000,0.9987 ± 0.0002,0.9939 ± 0.0033,0.9944 ± 0.0016,0.0099 ± 0.0017,
+phiusiil,b28,grouped,xgb,3.0,0.000 ± 0.000,0.9986 ± 0.0003,0.9940 ± 0.0032,0.9943 ± 0.0013,0.0091 ± 0.0012,
+phiusiil,v2,random,—,,,,,,,pending
+phiusiil,v2,grouped,—,,,,,,,pending
+lineage253k,b28,random,—,,,,,,,pending
+lineage253k,b28,grouped,—,,,,,,,pending
+lineage253k,v2,random,—,,,,,,,pending
+lineage253k,v2,grouped,—,,,,,,,pending

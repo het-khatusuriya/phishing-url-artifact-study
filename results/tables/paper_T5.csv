@@ -1,0 +1,25 @@
+held_out,representation,model,pool test AUC,held-out AUC,held-out F1@0.5,held-out recall@valFPR1%,held-out FPR@valFPR1%,status
+phiusiil,v2,lr,0.921 ± 0.012,0.966 ± 0.006,0.750 ± 0.015,0.147 ± 0.122,0.000 ± 0.000,
+phiusiil,v2,rf,0.960 ± 0.001,0.891 ± 0.027,0.762 ± 0.009,0.251 ± 0.054,0.000 ± 0.000,
+phiusiil,v2,xgb,0.968 ± 0.002,0.977 ± 0.017,0.784 ± 0.004,0.422 ± 0.047,0.000 ± 0.000,
+phiusiil,v2noart,lr,0.917 ± 0.016,0.888 ± 0.007,0.766 ± 0.007,0.321 ± 0.031,0.000 ± 0.000,
+phiusiil,v2noart,rf,0.958 ± 0.001,0.866 ± 0.013,0.784 ± 0.010,0.321 ± 0.052,0.000 ± 0.000,
+phiusiil,v2noart,xgb,0.965 ± 0.003,0.878 ± 0.013,0.800 ± 0.001,0.424 ± 0.084,0.000 ± 0.000,
+phiusiil,v2canon,,,,,,,pending
+lineage253k,v2,lr,0.905,0.869,0.665,0.996,0.907,
+lineage253k,v2,rf,0.960,0.769,0.756,0.400,0.167,
+lineage253k,v2,xgb,0.973,0.878,0.768,0.656,0.074,
+lineage253k,v2noart,,,,,,,pending
+lineage253k,v2canon,,,,,,,pending
+hannousse2021,v2,,,,,,,pending
+hannousse2021,v2noart,,,,,,,pending
+hannousse2021,v2canon,,,,,,,pending
+ebbu2017,v2,,,,,,,pending
+ebbu2017,v2noart,,,,,,,pending
+ebbu2017,v2canon,,,,,,,pending
+phishstorm,v2,,,,,,,pending
+phishstorm,v2noart,,,,,,,pending
+phishstorm,v2canon,,,,,,,pending
+iscx2016,v2,,,,,,,pending
+iscx2016,v2noart,,,,,,,pending
+iscx2016,v2canon,,,,,,,pending

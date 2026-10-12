@@ -1,0 +1,13 @@
+data,model,accuracy,precision,recall,f1,roc_auc
+"original raw_data.csv (stored result, not re-run)",Logistic Regression,0.8864,0.903,0.8598,0.8809,not stored
+"original raw_data.csv (stored result, not re-run)",Random Forest,0.9679,0.9771,0.9568,0.9668,not stored
+"original raw_data.csv (stored result, not re-run)",XGBoost,0.9671,0.9828,0.9492,0.9657,not stored
+"original raw_data.csv (stored result, not re-run)",Weighted Soft-Voting Ensemble,0.9678,0.9824,0.9512,0.9665,not stored
+phiusiil (original code re-run),Logistic Regression,0.9952,0.9985,0.9903,0.9944,0.9983
+phiusiil (original code re-run),Random Forest,0.9968,0.9984,0.994,0.9962,0.9984
+phiusiil (original code re-run),XGBoost,0.9969,0.9992,0.9936,0.9964,0.9986
+phiusiil (original code re-run),Weighted Soft-Voting Ensemble,0.997,0.9994,0.9935,0.9965,0.9988
+lineage253k (original code re-run),Logistic Regression,0.7025,0.7403,0.6009,0.6633,0.805
+lineage253k (original code re-run),Random Forest,0.8455,0.8465,0.8346,0.8405,0.9239
+lineage253k (original code re-run),XGBoost,0.8406,0.8542,0.8117,0.8324,0.9265
+lineage253k (original code re-run),Weighted Soft-Voting Ensemble,0.8484,0.8529,0.8328,0.8427,0.9317
