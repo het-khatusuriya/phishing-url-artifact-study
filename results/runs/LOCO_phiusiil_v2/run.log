@@ -1,0 +1,12 @@
+2026-10-11 22:50:13,124 INFO feature extraction lexical_v2: 228.7s for 198788 urls
+2026-10-11 22:53:51,784 INFO feature extraction lexical_v2: 217.0s for 234687 urls
+2026-10-11 22:55:06,120 INFO feature extraction lexical_v2: 72.2s for 67326 urls
+2026-10-11 22:58:22,348 INFO lr seed=42 test AUC=0.9222 F1@0.5=0.8355 fit=4.5s
+2026-10-11 22:59:07,623 INFO rf seed=42 test AUC=0.9593 F1@0.5=0.8925 fit=24.6s
+2026-10-11 22:59:26,179 INFO xgb seed=42 test AUC=0.9656 F1@0.5=0.8954 fit=7.5s
+2026-10-11 23:01:39,845 INFO lr seed=43 test AUC=0.9322 F1@0.5=0.8416 fit=4.9s
+2026-10-11 23:02:24,116 INFO rf seed=43 test AUC=0.9605 F1@0.5=0.8876 fit=23.8s
+2026-10-11 23:02:42,581 INFO xgb seed=43 test AUC=0.9678 F1@0.5=0.8921 fit=7.4s
+2026-10-11 23:05:22,195 INFO lr seed=44 test AUC=0.9087 F1@0.5=0.7997 fit=5.4s
+2026-10-11 23:06:11,796 INFO rf seed=44 test AUC=0.9607 F1@0.5=0.8640 fit=26.1s
+2026-10-11 23:06:29,333 INFO xgb seed=44 test AUC=0.9696 F1@0.5=0.8933 fit=6.9s

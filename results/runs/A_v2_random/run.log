@@ -1,0 +1,28 @@
+2026-10-12 11:58:44,241 INFO feature extraction lexical_v2: 172.2s for 95962 urls
+2026-10-12 12:00:02,365 INFO feature extraction lexical_v2: 76.1s for 45324 urls
+2026-10-12 12:01:05,911 INFO feature extraction lexical_v2: 63.2s for 72847 urls
+2026-10-12 12:01:22,325 INFO lr seed=42 test AUC=0.9988 F1@0.5=0.9975 fit=2.5s
+2026-10-12 12:01:58,374 INFO rf seed=42 test AUC=0.9987 F1@0.5=0.9977 fit=19.5s
+2026-10-12 12:02:19,370 INFO xgb seed=42 test AUC=0.9987 F1@0.5=0.9978 fit=7.8s
+2026-10-12 12:04:00,958 INFO softvote seed=42 test AUC=0.9988 F1@0.5=0.9978 fit=35.3s
+2026-10-12 12:05:34,507 INFO lgbm seed=42 test AUC=0.9986 F1@0.5=0.9977 fit=63.1s
+2026-10-12 12:05:50,750 INFO lr seed=43 test AUC=0.9980 F1@0.5=0.9970 fit=1.8s
+2026-10-12 12:06:27,709 INFO rf seed=43 test AUC=0.9982 F1@0.5=0.9969 fit=19.2s
+2026-10-12 12:06:51,210 INFO xgb seed=43 test AUC=0.9983 F1@0.5=0.9972 fit=9.2s
+2026-10-12 12:07:49,058 INFO softvote seed=43 test AUC=0.9984 F1@0.5=0.9971 fit=30.7s
+2026-10-12 12:08:30,710 INFO lgbm seed=43 test AUC=0.9983 F1@0.5=0.9969 fit=17.3s
+2026-10-12 12:08:46,518 INFO lr seed=44 test AUC=0.9989 F1@0.5=0.9984 fit=1.8s
+2026-10-12 12:09:52,108 INFO rf seed=44 test AUC=0.9990 F1@0.5=0.9980 fit=19.2s
+2026-10-12 12:10:26,005 INFO xgb seed=44 test AUC=0.9989 F1@0.5=0.9982 fit=14.8s
+2026-10-12 12:11:25,167 INFO softvote seed=44 test AUC=0.9990 F1@0.5=0.9982 fit=33.0s
+2026-10-12 12:12:11,957 INFO lgbm seed=44 test AUC=0.9989 F1@0.5=0.9980 fit=19.9s
+2026-10-12 12:12:25,660 INFO lr seed=45 test AUC=0.9986 F1@0.5=0.9978 fit=1.5s
+2026-10-12 12:13:00,402 INFO rf seed=45 test AUC=0.9988 F1@0.5=0.9976 fit=17.1s
+2026-10-12 12:13:21,422 INFO xgb seed=45 test AUC=0.9987 F1@0.5=0.9979 fit=8.6s
+2026-10-12 12:14:11,365 INFO softvote seed=45 test AUC=0.9988 F1@0.5=0.9979 fit=25.3s
+2026-10-12 12:14:50,621 INFO lgbm seed=45 test AUC=0.9987 F1@0.5=0.9976 fit=14.5s
+2026-10-12 12:15:21,597 INFO lr seed=46 test AUC=0.9990 F1@0.5=0.9981 fit=2.1s
+2026-10-12 12:16:19,667 INFO rf seed=46 test AUC=0.9989 F1@0.5=0.9979 fit=33.1s
+2026-10-12 12:16:41,408 INFO xgb seed=46 test AUC=0.9990 F1@0.5=0.9981 fit=7.0s
+2026-10-12 12:17:41,566 INFO softvote seed=46 test AUC=0.9990 F1@0.5=0.9981 fit=26.5s
+2026-10-12 12:18:23,212 INFO lgbm seed=46 test AUC=0.9989 F1@0.5=0.9980 fit=13.1s

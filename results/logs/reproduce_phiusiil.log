@@ -1,0 +1,9 @@
+Logistic Regression done 34.5 s
+Random Forest done 88.5 s
+XGBoost done 62.5 s
+Weighted Soft-Voting Ensemble done 189.5 s
+                        model split  accuracy  precision  recall  f1_score    tn  fp  fn    tp  roc_auc  pr_auc  fit_seconds
+          Logistic Regression  test    0.9952     0.9985  0.9903    0.9944 26940  30 194 19774   0.9983  0.9986      34.4650
+                Random Forest  test    0.9968     0.9984  0.9940    0.9962 26939  31 120 19848   0.9984  0.9984      88.4582
+                      XGBoost  test    0.9969     0.9992  0.9936    0.9964 26954  16 128 19840   0.9986  0.9989      62.4813
+Weighted Soft-Voting Ensemble  test    0.9970     0.9994  0.9935    0.9965 26958  12 129 19839   0.9988  0.9990     189.4501

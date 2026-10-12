@@ -6,3 +6,6 @@ models/
 results/runs/*/predictions_*.csv
 .pytest_cache/
 research/papers/
+results/runs/*/split_*.json
+results/runs/*/history_*.json
+research/_notes_digest.md

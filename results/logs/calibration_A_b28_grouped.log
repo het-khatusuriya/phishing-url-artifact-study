@@ -1,0 +1,15 @@
+                                    ece  ...  fpr_at_val_fpr0.01
+model calibration eval_set               ...                    
+lr    isotonic    ebbu2017       0.5479  ...              1.0000
+                  hannousse2021  0.5006  ...              0.9939
+                  iscx2016       0.7806  ...              1.0000
+                  kaggle651k_bp  0.8543  ...              0.9995
+                  lineage253k    0.4169  ...              0.7427
+...                                 ...  ...                 ...
+xgb   platt       openphish         NaN  ...              0.0000
+                  phishstorm     0.4996  ...              1.0000
+                  phishtank         NaN  ...              0.0000
+                  test           0.0019  ...              0.0091
+                  urlhaus           NaN  ...              0.0000
+
+[120 rows x 4 columns]

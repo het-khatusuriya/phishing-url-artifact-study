@@ -1,0 +1,31 @@
+                                ece  ...  fpr_at_val_fpr0.01
+model calibration eval_set           ...                    
+lr    isotonic    phishtank     NaN  ...              0.0000
+                  phiusiil   0.1754  ...              0.0000
+                  test       0.0377  ...              0.0031
+      none        phishtank     NaN  ...              0.0000
+                  phiusiil   0.1348  ...              0.0000
+                  test       0.0501  ...              0.0032
+      platt       phishtank     NaN  ...              0.0000
+                  phiusiil   0.1757  ...              0.0000
+                  test       0.0450  ...              0.0032
+rf    isotonic    phishtank     NaN  ...              0.0000
+                  phiusiil   0.1544  ...              0.0000
+                  test       0.0365  ...              0.0083
+      none        phishtank     NaN  ...              0.0000
+                  phiusiil   0.0893  ...              0.0000
+                  test       0.0639  ...              0.0087
+      platt       phishtank     NaN  ...              0.0000
+                  phiusiil   0.1595  ...              0.0000
+                  test       0.0363  ...              0.0087
+xgb   isotonic    phishtank     NaN  ...              0.0000
+                  phiusiil   0.1503  ...              0.0000
+                  test       0.0356  ...              0.0107
+      none        phishtank     NaN  ...              0.0000
+                  phiusiil   0.1322  ...              0.0000
+                  test       0.0242  ...              0.0109
+      platt       phishtank     NaN  ...              0.0000
+                  phiusiil   0.1522  ...              0.0000
+                  test       0.0348  ...              0.0109
+
+[27 rows x 4 columns]

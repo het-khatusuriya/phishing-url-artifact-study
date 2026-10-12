@@ -1,0 +1,31 @@
+{
+  "run_id": "LOCO_phiusiil_v2",
+  "dataset": "pool_minus_phiusiil",
+  "feature_set": "lexical_v2",
+  "drop_artifacts": false,
+  "split": "grouped",
+  "models": [
+    "lr",
+    "rf",
+    "xgb"
+  ],
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "test_size": 0.2,
+  "val_size": 0.2,
+  "fpr_targets": [
+    0.01,
+    0.001
+  ],
+  "max_rows": null,
+  "external_tests": [
+    "phiusiil",
+    "phishtank"
+  ],
+  "charcnn": {},
+  "model_params": {},
+  "notes": "Leave-one-corpus-out: train on pool without phiusiil, test on phiusiil"
+}
