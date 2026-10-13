@@ -1,0 +1,3 @@
+# Pool of all six labelled corpora (each capped at 50k rows, stratified) for the deployable model
+datasets:
+  - {name: pool_all, concat: [phiusiil, lineage253k, hannousse2021, ebbu2017, phishstorm, iscx2016], cap_per_source: 50000}

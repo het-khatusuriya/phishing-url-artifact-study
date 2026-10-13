@@ -51,8 +51,9 @@ class URLPredictor:
         thr = self.thresholds.get(policy, 0.5)
         out = []
         for u, p in zip(urls, probs):
-            margin = abs(p - thr)
-            band = "low" if margin < 0.1 else ("medium" if margin < 0.3 else "high")
+            # distance from the threshold, scaled by the room available on that side (0 = at threshold, 1 = at 0 or 1)
+            margin = (p - thr) / max(1 - thr, 1e-9) if p >= thr else (thr - p) / max(thr, 1e-9)
+            band = "low" if margin < 1 / 3 else ("medium" if margin < 2 / 3 else "high")
             out.append({
                 "url": u,
                 "p_malicious": float(p),
@@ -65,6 +66,44 @@ class URLPredictor:
                 "model": self.meta.get("name", "unknown"),
             })
         return out
+
+
+    # ------------------------------------------------------------------ explanations
+    def _explainable_pipeline(self):
+        """Return (pipeline, note) for a pipeline whose last step can be explained exactly."""
+        pipe = self.pipeline
+        if hasattr(pipe, "named_estimators_"):          # VotingClassifier: explain its XGBoost member
+            for key in ("xgb", "lr"):
+                if key in pipe.named_estimators_:
+                    return pipe.named_estimators_[key], f"from the ensemble's {key.upper()} member"
+            return None, "not available for this ensemble"
+        return pipe, ""
+
+    def explain(self, url: str, top_k: int = 8) -> Dict:
+        """Per-feature contributions (log-odds of 'malicious') for one URL.
+
+        XGBoost: exact TreeSHAP via the booster's pred_contribs.
+        Logistic regression: coefficient x standardised value.
+        Returns {"note": str, "rows": [(feature, value, contribution), ...]} sorted by |contribution|.
+        """
+        pipe, note = self._explainable_pipeline()
+        if pipe is None or not hasattr(pipe, "named_steps"):
+            return {"note": note or "not available for this model", "rows": []}
+        prep, est = pipe.named_steps.get("prep"), pipe.named_steps.get("model")
+        X = self._features([url])
+        Xt = prep.transform(X) if prep is not None else X.values
+        names = list(prep.get_feature_names_out()) if prep is not None else list(X.columns)
+        if hasattr(est, "get_booster"):
+            import xgboost as xgb
+            contrib = est.get_booster().predict(xgb.DMatrix(np.asarray(Xt, dtype=float)), pred_contribs=True)[0, :-1]
+        elif hasattr(est, "coef_"):
+            contrib = np.asarray(Xt, dtype=float)[0] * est.coef_[0]
+        else:
+            return {"note": "not available for this model type", "rows": []}
+        raw = X.reindex(columns=[n for n in names if n in X.columns]).iloc[0].to_dict()
+        rows = [(n, raw.get(n, float(np.asarray(Xt)[0, i])), float(c)) for i, (n, c) in enumerate(zip(names, contrib))]
+        rows.sort(key=lambda r: abs(r[2]), reverse=True)
+        return {"note": note, "rows": rows[:top_k]}
 
 
 def save_bundle(path, pipeline, feature_set, columns, thresholds, drop_artifacts=False,

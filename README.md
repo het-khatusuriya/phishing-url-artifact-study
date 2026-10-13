@@ -95,11 +95,37 @@ Every figure and table is generated from files under `results/runs/`; nothing is
 
 Malicious = 1. Duplicates are removed after light normalisation and URLs with conflicting labels are dropped. The main split groups by registered domain (no domain in two partitions). Thresholds (max-F1, FPR ≤ 1 %, FPR ≤ 0.1 %) are chosen on validation only and applied unchanged to test and external sets. Five seeds for tabular models, three for char models (one for corpus B). Paired bootstrap and McNemar tests compare models on identical test URLs. Details: `research/EXPERIMENT_PROTOCOL.md`.
 
-## Demo app
+## Desktop app (Tkinter)
 
 ```bash
-python scripts/train_final_model.py --dataset phiusiil --feature-set lexical_v2_canon --model xgb --split grouped
-set URL_MODEL_BUNDLE=models\xgb_lexical_v2_canon_grouped_s42.joblib && python app.py
+python url_checker_gui.py          # or double-click run_gui.bat on Windows
+```
+
+The app loads every model bundle in `models/` and works fully offline (URLs are never visited).
+
+| Tab | What it does |
+|---|---|
+| Check a URL | Probability of phishing, verdict at the chosen operating point, confidence, the features that pushed the score up or down (exact XGBoost TreeSHAP or logistic-regression contributions), a breakdown of the URL into its parts, and the verdict of every loaded model side by side |
+| Variant test | Re-scores equivalent ways of writing the same URL (upper-case host, trailing slash, default port, fragment, www., http/https, tracking parameter) and highlights where the decision changes |
+| Batch scan | Scores a `.txt` (one URL per line) or `.csv` (column `url`) file in the background and exports the results to CSV |
+| Model info | Training data, thresholds and held-out test results of the selected model, with its limitations |
+
+Operating points: *Balanced* and *Strict* use thresholds chosen on validation data for a 1 % and 0.1 % false-positive budget.
+
+Bundled model: `models/xgb_lexical_v2_canon_pool_all_grouped_s42.joblib` (XGBoost, canonicalised lexical features, trained on the six pooled corpora — the most robust configuration in the paper). To add the original-approach model for comparison:
+
+```bash
+python scripts/build_canonical.py configs/datasets_pool_all.yaml      # pooled corpus (needs the datasets)
+python scripts/train_final_model.py --dataset pool_all --feature-set lexical_v2_canon --model xgb --split grouped --calibrate none
+python scripts/train_final_model.py --dataset phiusiil --feature-set baseline28 --model softvote --split grouped --calibrate none
+```
+
+Model bundles are Python pickles: only load bundles you trust.
+
+## Web demo (Flask)
+
+```bash
+set URL_MODEL_BUNDLE=models\xgb_lexical_v2_canon_pool_all_grouped_s42.joblib && python app.py
 ```
 
 `POST /api/predict {"url": "...", "policy": "val_fpr0.01"}` returns the probability, threshold, a flag, a confidence band and an explicit non-guarantee statement.

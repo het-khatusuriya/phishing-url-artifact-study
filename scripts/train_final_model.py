@@ -56,7 +56,7 @@ def main(a):
     p_te = clf.predict_proba(X.iloc[te])[:, 1]
     if calibrator is not None:
         p_te = calibrator.predict(p_te) if a.calibrate == "isotonic" else calibrator.predict_proba(p_te.reshape(-1, 1))[:, 1]
-    name = f"{a.model}_{a.feature_set}{'_noart' if a.drop_artifacts else ''}_{a.split}_s{a.seed}"
+    name = f"{a.model}_{a.feature_set}{'_noart' if a.drop_artifacts else ''}_{a.dataset}_{a.split}_s{a.seed}"
     card = {"name": name, "created": datetime.now(timezone.utc).isoformat(), "dataset": a.dataset,
             "feature_set": a.feature_set, "drop_artifacts": a.drop_artifacts, "split": a.split, "seed": a.seed,
             "model": a.model, "calibration": a.calibrate, "fit_seconds": fit_s, "thresholds": thresholds,
