@@ -1,0 +1,9 @@
+2026-10-12 15:14:52,750 INFO charcnn seed=42 test AUC=0.9990 F1@0.5=0.9980 fit=1373.6s
+2026-10-12 15:39:12,283 INFO charcnn_canon seed=42 test AUC=0.9454 F1@0.5=0.8852 fit=1126.3s
+2026-10-12 16:01:40,377 INFO charcnn_hybrid seed=42 test AUC=0.9991 F1@0.5=0.9979 fit=1017.3s
+2026-10-12 21:26:59,048 INFO charcnn seed=43 test AUC=0.9986 F1@0.5=0.9967 fit=1196.1s
+2026-10-12 22:04:46,508 INFO charcnn_canon seed=43 test AUC=0.9217 F1@0.5=0.8235 fit=1434.0s
+2026-10-13 09:47:05,568 INFO charcnn_hybrid seed=43 test AUC=0.9986 F1@0.5=0.9969 fit=1527.9s
+2026-10-13 10:21:01,750 INFO charcnn seed=44 test AUC=0.9989 F1@0.5=0.9979 fit=1278.6s
+2026-10-13 10:49:33,121 INFO charcnn_canon seed=44 test AUC=0.9468 F1@0.5=0.8853 fit=1272.1s
+2026-10-13 11:23:11,976 INFO charcnn_hybrid seed=44 test AUC=0.9990 F1@0.5=0.9978 fit=1451.1s

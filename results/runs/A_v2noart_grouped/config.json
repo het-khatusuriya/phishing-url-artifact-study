@@ -1,0 +1,41 @@
+{
+  "run_id": "A_v2noart_grouped",
+  "dataset": "phiusiil",
+  "feature_set": "lexical_v2",
+  "drop_artifacts": true,
+  "split": "grouped",
+  "models": [
+    "lr",
+    "rf",
+    "xgb",
+    "softvote",
+    "lgbm"
+  ],
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "test_size": 0.2,
+  "val_size": 0.2,
+  "fpr_targets": [
+    0.01,
+    0.001
+  ],
+  "max_rows": null,
+  "external_tests": [
+    "lineage253k",
+    "hannousse2021",
+    "ebbu2017",
+    "phishstorm",
+    "iscx2016",
+    "phishtank",
+    "urlhaus",
+    "openphish"
+  ],
+  "charcnn": {},
+  "model_params": {},
+  "notes": ""
+}

@@ -1,0 +1,31 @@
+{
+  "run_id": "LOCO_iscx2016_v2noart",
+  "dataset": "pool_minus_iscx2016",
+  "feature_set": "lexical_v2",
+  "drop_artifacts": true,
+  "split": "grouped",
+  "models": [
+    "lr",
+    "rf",
+    "xgb"
+  ],
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "test_size": 0.2,
+  "val_size": 0.2,
+  "fpr_targets": [
+    0.01,
+    0.001
+  ],
+  "max_rows": null,
+  "external_tests": [
+    "iscx2016",
+    "phishtank"
+  ],
+  "charcnn": {},
+  "model_params": {},
+  "notes": "Leave-one-corpus-out: train on pool without iscx2016, test on iscx2016"
+}

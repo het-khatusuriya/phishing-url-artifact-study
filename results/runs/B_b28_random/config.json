@@ -1,0 +1,40 @@
+{
+  "run_id": "B_b28_random",
+  "dataset": "lineage253k",
+  "feature_set": "baseline28",
+  "drop_artifacts": false,
+  "split": "random",
+  "models": [
+    "lr",
+    "rf",
+    "xgb",
+    "softvote"
+  ],
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "test_size": 0.2,
+  "val_size": 0.2,
+  "fpr_targets": [
+    0.01,
+    0.001
+  ],
+  "max_rows": null,
+  "external_tests": [
+    "phiusiil",
+    "hannousse2021",
+    "ebbu2017",
+    "phishstorm",
+    "iscx2016",
+    "phishtank",
+    "urlhaus",
+    "openphish"
+  ],
+  "charcnn": {},
+  "model_params": {},
+  "notes": ""
+}
